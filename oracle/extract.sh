@@ -1,19 +1,16 @@
 #!/bin/sh
 
-echo $@
-echo "--"
-
 # if no parameters, we look for Magic 2013
 case $# in 
 	0) EXP="M13";;
 	*) EXP=$@;;
 esac;
 
+echo "Extracting cards from sets:" $EXP
+
 # we prepare the regex by substituting spaces for |
 # (alternative operator)
 OR=(${EXP/ /\|})
-echo "Selecting cards from sets: " $OR
-
 
 # now, we open the master file
 # feed to a sed that buffers a card and check the expansion
