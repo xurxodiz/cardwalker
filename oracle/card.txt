@@ -1,0 +1,6 @@
+Abbey Gargoyles
+2WWW
+Creature -- Gargoyle
+3/4
+Flying, protection from red
+HL-U, 5E-U
