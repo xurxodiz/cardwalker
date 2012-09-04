@@ -1,6 +1,7 @@
-Abbey Gargoyles
-2WWW
-Creature -- Gargoyle
-3/4
-Flying, protection from red
-HL-U, 5E-U
+Acidic Slime
+3GG
+Creature -- Ooze
+2/2
+Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)
+When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.
+M10-U, M11-U, CMD-U, M12-U, M13-U
