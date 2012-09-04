@@ -2,6 +2,8 @@ from grammar.card import *
 
 total, cleared = 0, 0
 
+path = "oracle/workingset.txt"
+
 def parse(str):
     global cleared, total
     total += 1
@@ -12,7 +14,11 @@ def parse(str):
     except:
         print "Error parsing: %s" % storage.splitlines()[0]
 
-with open("oracle/workingset.txt", "r") as f:
+def deep_parse(str):
+    tree = card.parseString(str)
+    print tree
+
+with open(path, "r") as f:
     storage = ""
 
     for line in f:
@@ -21,7 +27,4 @@ with open("oracle/workingset.txt", "r") as f:
             storage = ""
         else:
             storage += line
-    
-    # for the last card on file
-    parse(storage)
-    print "%s out of %s" % (cleared, total)
+    print "Passed %s out of %s" % (cleared, total)

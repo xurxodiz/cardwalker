@@ -11,6 +11,8 @@ echo "Extracting cards from sets:" $EXP
 # we prepare the regex by substituting spaces for |
 # (alternative operator)
 OR=(${EXP/ /\|})
+INPUT=allsets.txt
+OUTPUT=workingset.txt
 
 # now, we open the master file
 # feed to a sed that buffers a card and check the expansion
@@ -18,7 +20,7 @@ OR=(${EXP/ /\|})
 # the second sed erases trailing blank lines on the stream (not inter-card)
 # finally, we dump it to output file
 
-cat allsets.txt \
+cat $INPUT \
 | sed -E -n '
 /^$/! {
 	# if nonempty, store lines until...
@@ -40,4 +42,9 @@ cat allsets.txt \
 	x
 }' \
 | sed '/./,$!d' \
-> workingset.txt
+> $OUTPUT
+
+# extra line break for proper format
+# each card is known to be finished by a \n
+# so lack of this could make the last card be skipped
+echo "" >> $OUTPUT

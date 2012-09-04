@@ -1616,3 +1616,4 @@ Zombie Goliath
 Creature -- Zombie Giant
 4/3
 M10-C, M12-C, M13-C
+

@@ -1,7 +1,7 @@
-Acidic Slime
-3GG
-Creature -- Ooze
+Ajani's Sunstriker
+GW
+Creature -- Cat Cleric
 2/2
-Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)
-When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.
-M10-U, M11-U, CMD-U, M12-U, M13-U
+Lifelink (Damage dealt by this creature also causes you to gain that much life.)
+M13-C
+
