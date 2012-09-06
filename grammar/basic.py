@@ -1,31 +1,51 @@
 from pyparsing import *
 
-digit = Or(map(Literal, "0123456789"))
-caps = Or(map(Literal,"ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+def or_cl(lst):
+	return Or(map(CaselessLiteral, lst))
+
+def or_l(lst):
+	return Or(map(Literal, lst))
+
+digit = or_cl ("0123456789")
+caps = or_cl ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 number = OneOrMore(digit)
+
+fullnumber = or_cl (["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
 
 apostrophe = Literal("'")
 asterisk = Literal("*")
 plus = Literal("+")
 minus = Literal("-")
-comma = Literal(",")
-point = Literal(".")
-lparen = Literal("(")
-rparen = Literal(")")
-slash = Literal("/")
-dash = Word("-")
-_and = CaselessLiteral("and")
-_or = CaselessLiteral("or")
+
+comma = Suppress(",")
+point = Suppress(".")
+lparen = Suppress("(")
+rparen = Suppress(")")
+slash = Suppress("/")
+dash = Suppress(Word("-"))
+
+and_ = CaselessLiteral("and")
+or_ = CaselessLiteral("or")
+
+are = Suppress("is") | Suppress("are")
+have = Suppress("has") | Suppress("have")
+get = Suppress("get") | Suppress("gets")
+from_ = Suppress("from")
+an = Suppress("a") | Suppress("an")
+
+when = or_cl(["when", "whenever"])
+
+cardname = Group(Word(alphas + " '"))
 
 def delimitedListAnd(elem):
-	helper = _and + elem | elem
-	return delimitedList(helper, comma)
+	helper = Suppress(and_) + elem | elem
+	return delimitedList(helper, Optional(comma))
 
 def delimitedListOr(elem):
-	helper = _or + elem | elem
-	return delimitedList(helper, comma)
+	helper = Suppress(or_) + elem | elem
+	return delimitedList(helper, Optional(comma))
 
 def delimitedListAndOr(elem):
-	helper = (_and | _or) + elem | elem
-	return delimitedList(helper, comma)
+	helper = Suppress(and_ | or_) + elem | elem
+	return delimitedList(helper, Optional(comma))

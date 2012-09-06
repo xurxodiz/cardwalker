@@ -1,15 +1,21 @@
 from pyparsing import *
+from basic import *
 
-basic_land_type = Or(map(CaselessLiteral,
-	["Plains", "Forest", "Mountain", "Swamp", "Island"]))
+a_spell = or_cl(["spell", "spells"])
+a_permanent = or_cl(["permanent", "permanents"])
+a_card = or_cl(["card", "cards"])
+an_ability = or_cl(["ability", "abilities"])
 
-other_land_type = Or(map(CaselessLiteral,
-	["Desert", "Lair", "Locus", "Mine", "Power-Plant", "Tower","Urza's"]))
+a_concept = a_spell | a_permanent | a_card | an_ability
+
+basic_land_type = or_cl (["Plains", "Forest", "Mountain", "Swamp", "Island"])
+
+other_land_type = or_cl (["Desert", "Lair", "Locus", "Mine", "Power-Plant", "Tower", "Urza's"])
 
 land_type = basic_land_type | other_land_type
 
-creature_type = Or(map(CaselessLiteral,
-	["Advisor", "Ally", "Angel", "Anteater", "Antelope", "Ape", "Archer",
+creature_type = or_cl \
+	(["Advisor", "Ally", "Angel", "Anteater", "Antelope", "Ape", "Archer",
 	"Archon", "Artificer", "Assassin", "Assembly-Worker", "Atog",
 	"Aurochs", "Avatar", "Badger", "Barbarian", "Basilisk", "Bat",
 	"Bear", "Beast", "Beeble", "Berserker", "Bird", "Blinkmoth", "Boar",
@@ -42,29 +48,57 @@ creature_type = Or(map(CaselessLiteral,
 	"Triskelavite", "Troll", "Turtle", "Unicorn", "Vampire", "Vedalken",
 	"Viashino", "Volver", "Wall", "Warrior", "Weird", "Werewolf", "Whale",
 	"Wizard", "Wolf", "Wolverine", "Wombat", "Worm", "Wraith", "Wurm", "Yeti",
-	"Zombie", "Zubera"]))
+	"Zombie", "Zubera"])
 
 tribal_type = creature_type
 
-artifact_type = Or(map(CaselessLiteral,
-	["Contraption", "Equipment", "Fortification"]))
+artifact_type = or_cl (["Contraption", "Equipment", "Fortification"])
 
-planeswalker_type = Or(map(CaselessLiteral,
-	["Ajani", "Bolas", "Chandra", "Elspeth",
+planeswalker_type = or_cl \
+	(["Ajani", "Bolas", "Chandra", "Elspeth",
 	"Garruk", "Gideon", "Jace", "Karn", "Koth",
 	"Liliana", "Nissa", "Sarkhan", "Sorin",
-	"Tamiyo", "Tezzeret", "Tibalt", "Venser"]))
+	"Tamiyo", "Tezzeret", "Tibalt", "Venser"])
 
-enchantment_type = Or(map(CaselessLiteral,
-	["Aura", "Curse", "Shrine"]))
+enchantment_type = or_cl (["Aura", "Curse", "Shrine"])
 
-spell_type = Or(map(CaselessLiteral,
-	["Arcane", "Trap"]))
+spell_type = or_cl (["Arcane", "Trap"])
 
 a_subtype = spell_type | enchantment_type | planeswalker_type | artifact_type | creature_type | land_type
 
-a_type = Or(map(CaselessLiteral,
-	["Creature", "Tribal", "Instant", "Sorcery", "Land", "Artifact", "Enchantment", "Planeswalker"]))
+a_creature = or_cl (["Creature", "Creatures"])
 
-a_supertype = Or(map(CaselessLiteral,
-	["Basic", "Legendary", "Snow", "World"]))
+a_token = or_cl (["Token", "Tokens"])
+
+a_tribal = or_cl (["Tribal", "Tribals"])
+
+an_instant = or_cl (["Instant", "Instants"])
+
+a_sorcery = or_cl (["Sorcery", "Sorceries"])
+
+a_land = or_cl (["Land", "Lands"])
+
+an_artifact = or_cl (["Artifact", "Artifacts"])
+
+an_enchantment = or_cl (["Enchantment", "Enchantments"])
+
+a_planeswalker = or_cl (["Planeswalker", "Planeswalkers"])
+
+a_type = a_creature | a_token | a_tribal | an_instant | a_sorcery \
+					| a_land | an_artifact | an_enchantment | a_planeswalker
+
+a_supertype = or_cl	(["Basic", "Legendary", "Snow", "World"])
+
+a_nontype = Group(CaselessLiteral("Non") + (a_supertype | a_subtype | a_type))
+
+supertypes = OneOrMore(a_supertype)
+
+types = OneOrMore(a_type)
+
+subtypes = OneOrMore(a_subtype)
+
+cardtypeline = Group(
+	Optional(supertypes)
+	+ types
+	+ Optional(Suppress(dash) + subtypes)
+)

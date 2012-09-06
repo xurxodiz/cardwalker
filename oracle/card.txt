@@ -1,7 +1,6 @@
-Ajani's Sunstriker
-GW
-Creature -- Cat Cleric
-2/2
-Lifelink (Damage dealt by this creature also causes you to gain that much life.)
-M13-C
+Akroma's Memorial
+7
+Legendary Artifact
+Creatures you control have flying, first strike, vigilance, trample, haste, and protection from black and from red.
+FUT-R, M13-M
 
