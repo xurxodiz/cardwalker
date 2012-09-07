@@ -1,12 +1,12 @@
 from pyparsing import *
 from basic import *
 
-a_spell = or_cl(["spell", "spells"])
-a_permanent = or_cl(["permanent", "permanents"])
-a_card = or_cl(["card", "cards"])
-an_ability = or_cl(["ability", "abilities"])
+spell = or_cl(["spell", "spells"])
+permanent = or_cl(["permanent", "permanents"])
+CARD = or_cl(["card", "cards"])
+ability = or_cl(["ability", "abilities"])
 
-a_concept = a_spell | a_permanent | a_card | an_ability
+concept = spell | permanent | CARD | ability
 
 basic_land_type = or_cl (["Plains", "Forest", "Mountain", "Swamp", "Island"])
 
@@ -64,38 +64,38 @@ enchantment_type = or_cl (["Aura", "Curse", "Shrine"])
 
 spell_type = or_cl (["Arcane", "Trap"])
 
-a_subtype = spell_type | enchantment_type | planeswalker_type | artifact_type | creature_type | land_type
+subtype = spell_type | enchantment_type | planeswalker_type | artifact_type | creature_type | land_type
 
-a_creature = or_cl (["Creature", "Creatures"])
+creature = or_cl (["Creature", "Creatures"])
 
-a_token = or_cl (["Token", "Tokens"])
+token = or_cl (["Token", "Tokens"])
 
-a_tribal = or_cl (["Tribal", "Tribals"])
+tribal = or_cl (["Tribal", "Tribals"])
 
-an_instant = or_cl (["Instant", "Instants"])
+instant = or_cl (["Instant", "Instants"])
 
-a_sorcery = or_cl (["Sorcery", "Sorceries"])
+sorcery = or_cl (["Sorcery", "Sorceries"])
 
-a_land = or_cl (["Land", "Lands"])
+land = or_cl (["Land", "Lands"])
 
-an_artifact = or_cl (["Artifact", "Artifacts"])
+artifact = or_cl (["Artifact", "Artifacts"])
 
-an_enchantment = or_cl (["Enchantment", "Enchantments"])
+enchantment = or_cl (["Enchantment", "Enchantments"])
 
-a_planeswalker = or_cl (["Planeswalker", "Planeswalkers"])
+planeswalker = or_cl (["Planeswalker", "Planeswalkers"])
 
-a_type = a_creature | a_token | a_tribal | an_instant | a_sorcery \
-					| a_land | an_artifact | an_enchantment | a_planeswalker
+type_ = creature | token | tribal | instant | sorcery \
+				| land | artifact | enchantment | planeswalker
 
-a_supertype = or_cl	(["Basic", "Legendary", "Snow", "World"])
+supertype = or_cl	(["Basic", "Legendary", "Snow", "World"])
 
-a_nontype = Group(CaselessLiteral("Non") + (a_supertype | a_subtype | a_type))
+nontype = Group(CaselessLiteral("Non") + (supertype | subtype | type_))
 
-supertypes = OneOrMore(a_supertype)
+supertypes = OneOrMore(supertype)
 
-types = OneOrMore(a_type)
+types = OneOrMore(type_)
 
-subtypes = OneOrMore(a_subtype)
+subtypes = OneOrMore(subtype)
 
 cardtypeline = Group(
 	Optional(supertypes)

@@ -6,10 +6,10 @@ from pt import *
 from mana import *
 from rules import *
 
-card = (cardname
-	+ cardcost
-	+ cardtypeline
-	+ Optional(cardpt)
-	+ Optional(cardrules)
-	+ cardexpansions
+card = (cardname + EOL
+	+ cardcost + EOL
+	+ cardtypeline + EOL
+	+ Optional(cardpt + EOL)
+	+ Optional(cardrules + EOL)
+	+ cardexpansions + EOL
 )

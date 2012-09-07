@@ -1,5 +1,8 @@
 from pyparsing import *
 
+EOL = LineEnd().suppress()
+ParserElement.setDefaultWhitespaceChars(" \t")
+
 def or_cl(lst):
 	return Or(map(CaselessLiteral, lst))
 
@@ -27,6 +30,7 @@ dash = Suppress(Word("-"))
 
 and_ = CaselessLiteral("and")
 or_ = CaselessLiteral("or")
+this = CaselessLiteral("this") | CaselessLiteral("that")
 
 are = Suppress("is") | Suppress("are")
 have = Suppress("has") | Suppress("have")
@@ -35,6 +39,9 @@ from_ = Suppress("from")
 an = Suppress("a") | Suppress("an")
 
 when = or_cl(["when", "whenever"])
+target = CaselessLiteral("target")
+MAY = CaselessLiteral("may")
+UPTO = CaselessLiteral("up to")
 
 cardname = Group(Word(alphas + " '"))
 

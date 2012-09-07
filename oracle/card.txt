@@ -1,6 +1,6 @@
-Akroma's Memorial
-7
-Legendary Artifact
-Creatures you control have flying, first strike, vigilance, trample, haste, and protection from black and from red.
-FUT-R, M13-M
+Naturalize
+1G
+Instant
+Destroy target artifact or enchantment.
+ONS-C, 8ED-C, 9ED-C, 10E-C, ALA-C, M10-C, ROE-C, M11-C, M12-C, ISD-C, M13-C
 

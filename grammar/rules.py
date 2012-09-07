@@ -4,21 +4,16 @@ from types import *
 from mana import *
 from pt import *
 
-people = or_cl (["you", "an opponent", "a player"])
+people = or_cl (["you", "opponent", "player"])
 control = or_cl (["control", "controls"])
 object_mod = people + control
 
-objects = Group(ZeroOrMore(delimitedListAndOr(a_color))
-	+ ZeroOrMore(delimitedListAndOr(a_nontype))
-	+ ZeroOrMore(delimitedListAndOr(a_supertype))
-	+ OneOrMore(delimitedListAndOr(a_subtype | a_type | a_concept))
-	+ ZeroOrMore(object_mod)
+objects = Group(ZeroOrMore(delimitedListAndOr(color))
+	+ ZeroOrMore(delimitedListAndOr(nontype))
+	+ ZeroOrMore(delimitedListAndOr(supertype))
+	+ OneOrMore(delimitedListAndOr(subtype | type_ | concept))
+	+ Optional(Group(OneOrMore(object_mod)))
 )
-
-how_many = (Optional(CaselessLiteral("up to")) + fullnumber
-			| CaselessLiteral("all")
-)
-
 keyword = (or_cl (["Flying",
 				"Deathtouch",
 				"Trample",
@@ -29,7 +24,7 @@ keyword = (or_cl (["Flying",
 				"Exalted",
 				"Lifelink", 
 				"First strike"])
-		| Group(CaselessLiteral("Protection") + delimitedListAnd(from_ + a_color))
+		| Group(CaselessLiteral("Protection") + delimitedListAnd(from_ + color))
 )
 
 indestructible = CaselessLiteral("indestructible")
@@ -38,8 +33,15 @@ unblockable = CaselessLiteral("unblockable")
 reminder = Suppress(lparen + SkipTo(rparen) + rparen)
 keywords = delimitedListAnd(keyword+Optional(reminder))
 
+properties = (have + delimitedListAndOr(keywords)
+			| get + ptmod
+			| are + indestructible
+			| are + unblockable
+)
 
-condition = (CaselessLiteral("enters the battlefield")
+continuous = objects + delimitedListAndOr(properties)
+
+condition = Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("leaves the battlefield")
 		| CaselessLiteral("dies")
 		| CaselessLiteral("gain life")
@@ -51,36 +53,42 @@ condition = (CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("attacks alone")
 )
 
-subject = (people
-	| an + objects + object_mod
-	| (SkipTo(condition))
-)
+targets = Optional(UPTO + fullnumber) + target + (people|objects)
 
+until = CaselessLiteral("until end of turn")
 
-postargets = (or_cl (["player", "opponent"])
-			| objects
-)
-
-targets = (CaselessLiteral("target") + postargets
-		| how_many	+ Literal("target") + postargets
-)
-
-effect = (CaselessLiteral("destroy") + delimitedListAndOr(targets)
+effect = Group(CaselessLiteral("destroy") + Group(delimitedListAndOr(targets))
 		| CaselessLiteral("gain") + number + CaselessLiteral("life")
 		| CaselessLiteral("tap") + targets
+		| continuous + Optional(until)
 )
 
-may_effect = Optional(people + Optional("may")) + effect
+trigger = condition
 
-trigger = when + Group(subject) + Group(condition)  + comma + Group(may_effect) 
-
-properties = (have + delimitedListAndOr(keywords)
-			| get + ptmod
-			| are + indestructible
-			| are + unblockable
+triggerer = Optional(this) + (objects
+	| people
+	| (SkipTo(trigger))
 )
 
-continuous = objects + Optional(object_mod) + delimitedListAndOr(properties)
+nonmayer = (objects
+	| people
+	| targets
+	| CaselessLiteral("it")
+	| (this + objects | this + people)
+	| (cardname + SkipTo(effect))
+)
+mayer = (people + MAY | people + MAY + nonmayer) 
+effecter = (mayer|nonmayer)
 
-rules = Group(trigger|keywords|continuous|may_effect) + Optional(point)
-cardrules = ZeroOrMore(rules)
+
+intervif = Literal("FILLER")
+unless = Literal("FILLER")
+
+trigger_clause = when + triggerer + trigger + Optional(comma + intervif)
+effect_clause = Optional(effecter) + effect + Optional(unless)
+
+triggered = Group(trigger_clause) + comma + Group(effect_clause)
+
+rule = Group(triggered|keywords|continuous|effect_clause) + Optional(point)
+
+cardrules = delimitedList(rule, EOL)

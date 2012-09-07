@@ -12,7 +12,10 @@ def parse(str):
         print "Parsed: %s" % " ".join(tree[0])
         cleared += 1
     except:
-        print "Error parsing: %s" % storage.splitlines()[0]
+        try:
+            print "Error parsing: %s" % storage.splitlines()[0]
+        except:
+            print "Error"
 
 def deep_parse(str):
     tree = card.parseString(str)
