@@ -1,8 +1,8 @@
 from pyparsing import *
 from basic import *
 
-ptchange = (plus | minus) + number
-ptquantity = asterisk | number | (asterisk + ptchange)
-ptmod = ptchange + Suppress(slash) + ptchange
+ptchange = (PLUS | MINUS) + number
+ptquantity = ASTERISK | number | (ASTERISK + ptchange)
+ptmod = ptchange + Suppress(SLASH) + ptchange
 
-cardpt = Group(ptquantity + Suppress(slash) + ptquantity)
+cardpt = Group(ptquantity + Suppress(SLASH) + ptquantity)

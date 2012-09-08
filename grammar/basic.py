@@ -1,13 +1,44 @@
 from pyparsing import *
 
-EOL = LineEnd().suppress()
 ParserElement.setDefaultWhitespaceChars(" \t")
+
+AND = CaselessLiteral("and")
+OR = CaselessLiteral("or")
 
 def or_cl(lst):
 	return Or(map(CaselessLiteral, lst))
 
 def or_l(lst):
 	return Or(map(Literal, lst))
+
+def or_cs(lst):
+	return Suppress(or_cl(lst)) #Or(map(Suppress, map(CaselessLiteral, lst)))
+
+def delimitedListAnd(elem):
+	helper = Suppress(AND) + elem | elem
+	return delimitedList(helper, Optional(COMMA))
+
+def delimitedListOr(elem):
+	helper = Suppress(OR) + elem | elem
+	return delimitedList(helper, Optional(COMMA))
+
+def delimitedListAndOr(elem):
+	helper = Suppress(AND|OR) + elem | elem
+	return delimitedList(helper, Optional(COMMA))
+
+EOL = LineEnd().suppress()
+
+APOS = Literal("'")
+ASTERISK = Literal("*")
+PLUS = Literal("+")
+MINUS = Literal("-")
+
+COMMA = Suppress(",")
+POINT = Suppress(".")
+LPAREN = Suppress("(")
+RPAREN = Suppress(")")
+SLASH = Suppress("/")
+DASH = Suppress(Word("-"))
 
 digit = or_cl ("0123456789")
 caps = or_cl ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -16,43 +47,4 @@ number = OneOrMore(digit)
 
 fullnumber = or_cl (["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
 
-apostrophe = Literal("'")
-asterisk = Literal("*")
-plus = Literal("+")
-minus = Literal("-")
-
-comma = Suppress(",")
-point = Suppress(".")
-lparen = Suppress("(")
-rparen = Suppress(")")
-slash = Suppress("/")
-dash = Suppress(Word("-"))
-
-and_ = CaselessLiteral("and")
-or_ = CaselessLiteral("or")
-this = CaselessLiteral("this") | CaselessLiteral("that")
-
-are = Suppress("is") | Suppress("are")
-have = Suppress("has") | Suppress("have")
-get = Suppress("get") | Suppress("gets")
-from_ = Suppress("from")
-an = Suppress("a") | Suppress("an")
-
-when = or_cl(["when", "whenever"])
-target = CaselessLiteral("target")
-MAY = CaselessLiteral("may")
-UPTO = CaselessLiteral("up to")
-
 cardname = Group(Word(alphas + " '"))
-
-def delimitedListAnd(elem):
-	helper = Suppress(and_) + elem | elem
-	return delimitedList(helper, Optional(comma))
-
-def delimitedListOr(elem):
-	helper = Suppress(or_) + elem | elem
-	return delimitedList(helper, Optional(comma))
-
-def delimitedListAndOr(elem):
-	helper = Suppress(and_ | or_) + elem | elem
-	return delimitedList(helper, Optional(comma))

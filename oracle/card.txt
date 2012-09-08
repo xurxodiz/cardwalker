@@ -1,6 +1,6 @@
-Naturalize
-1G
-Instant
-Destroy target artifact or enchantment.
-ONS-C, 8ED-C, 9ED-C, 10E-C, ALA-C, M10-C, ROE-C, M11-C, M12-C, ISD-C, M13-C
+Mind Rot
+2B
+Sorcery
+Target player discards two cards.
+P1-C, P2-C, S99-C, 7E-C, 8ED-C, 9ED-C, 10E-C, M10-C, M11-C, M12-C, M13-C
 

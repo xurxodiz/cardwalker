@@ -1,13 +1,6 @@
 from pyparsing import *
 from basic import *
 
-spell = or_cl(["spell", "spells"])
-permanent = or_cl(["permanent", "permanents"])
-CARD = or_cl(["card", "cards"])
-ability = or_cl(["ability", "abilities"])
-
-concept = spell | permanent | CARD | ability
-
 basic_land_type = or_cl (["Plains", "Forest", "Mountain", "Swamp", "Island"])
 
 other_land_type = or_cl (["Desert", "Lair", "Locus", "Mine", "Power-Plant", "Tower", "Urza's"])
@@ -87,7 +80,7 @@ planeswalker = or_cl (["Planeswalker", "Planeswalkers"])
 type_ = creature | token | tribal | instant | sorcery \
 				| land | artifact | enchantment | planeswalker
 
-supertype = or_cl	(["Basic", "Legendary", "Snow", "World"])
+supertype = or_cl (["Basic", "Legendary", "Snow", "World"])
 
 nontype = Group(CaselessLiteral("Non") + (supertype | subtype | type_))
 
@@ -100,5 +93,5 @@ subtypes = OneOrMore(subtype)
 cardtypeline = Group(
 	Optional(supertypes)
 	+ types
-	+ Optional(Suppress(dash) + subtypes)
+	+ Optional(Suppress(DASH) + subtypes)
 )
