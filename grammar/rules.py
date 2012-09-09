@@ -5,18 +5,41 @@ from mana import *
 from pt import *
 from constants import *
 
-concept = SPELL | PERMANENT | CARD | ABILITY
-people = or_cl (["you", "opponent", "player"])
-object_mod = people + CONTROL
-
-obj = (ZeroOrMore(delimitedListAndOr(color))
-	+ ZeroOrMore(delimitedListAndOr(nontype))
-	+ ZeroOrMore(delimitedListAndOr(supertype))
-	+ OneOrMore(delimitedListAndOr(subtype | type_ | concept))
-	+ Optional(Group(OneOrMore(object_mod)))
+det = Group(TARGET
+	| Optional(UPTO) + fullnumber + TARGET
+	| (THIS|THAT)
+	| AN
+	| HIS
+	| ALL
+	| EACH
 )
 
-objects = Group(AN + obj | obj)
+peopleposs = Group(YOUR
+		| det + PLAYER + POSS
+		| det + OPPONENT + POSS
+		| det
+)
+
+zone = Group (peopleposs + (GRAVEYARD|HAND|LIBRARY)
+		| THE + BATTLEFIELD
+)
+
+adj = Group(delimitedListAndOr(color | nontype | supertype))
+
+people = Optional(det) + (YOU | PLAYER | OPPONENT)
+
+where = Group(people + CONTROL
+		| IN + zone
+)
+
+concept = SPELL | PERMANENT | CARD | ABILITY
+
+obj = (Optional(adj)
+	+ delimitedListAndOr(subtype | type_ | concept)
+	+ Optional(where)
+)
+
+objects = Group(delimitedListAndOr(det + obj | obj))
 
 keyword = (or_cl (["Flying",
 				"Deathtouch",
@@ -43,7 +66,9 @@ properties = (HAVE + delimitedListAndOr(keywords)
 			| BE + unblockable
 )
 
-continuous = objects + delimitedListAndOr(properties)
+until = CaselessLiteral("until end of turn")
+
+continuous = objects + delimitedListAndOr(properties) + Optional(until)
 
 condition = Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("leaves the battlefield")
@@ -54,17 +79,17 @@ condition = Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("attacks alone")
 )
 
-targets = Optional(UPTO + fullnumber) + TARGET + (people|objects)
-
-until = CaselessLiteral("until end of turn")
-
-effect = Group(DESTROY + Group(delimitedListAndOr(targets))
-		| EXILE + Group(delimitedListAndOr(targets))
+effect = Group(DESTROY + objects
+		| EXILE + objects
 		| GAIN + number + LIFE
-		| TAP + targets
-		| continuous + Optional(until)
-		| DISCARD + Optional(fullnumber) + objects
-)
+		| TAP + objects
+		| continuous
+		| DISCARD + objects + Optional(RANDOM)
+		| LOSE + number + LIFE
+		| DEAL + number + DAMAGE + TO + objects
+		| DEAL + DAMAGE + TO + objects
+		| SACRIFICE + objects
+) # + Optional(equal|for_)
 
 trigger = condition
 
@@ -75,12 +100,10 @@ triggerer = Optional(THIS) + (objects
 
 nonmayer = (objects
 	| people
-	| targets
 	| IT
-	| (THIS + objects | THIS + people)
 	| (cardname + SkipTo(effect))
 )
-mayer = (people + MAY | people + MAY + nonmayer) 
+mayer = people + MAY + Optional(nonmayer) 
 effecter = (mayer|nonmayer)
 
 
