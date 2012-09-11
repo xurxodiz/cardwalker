@@ -26,6 +26,8 @@ ON = CaselessLiteral("on")
 ONTO = CaselessLiteral("onto")
 WITH = CaselessLiteral("with")
 BY = CaselessLiteral("by")
+AT = CaselessLiteral("at")
+UNTIL = CaselessLiteral("until")
 
 DESTROY = or_cl(["destroy", "destroys"])
 EXILE = or_cl(["exile", "exiles"])
@@ -85,3 +87,14 @@ BATTLEFIELD = CaselessLiteral("battlefield")
 ATRANDOM = CaselessLiteral("at random")
 TOTAL = CaselessLiteral("total")
 SIZE = CaselessLiteral("size")
+
+BEGINNING = CaselessLiteral("beginning")
+END = CaselessLiteral("end")
+
+
+TURN = CaselessLiteral("turn")
+UPKEEP = CaselessLiteral("upkeep")
+DRAWSTEP = CaselessLiteral("draw step")
+PRECOMBAT = CaselessLiteral("first main phase")
+COMBAT = CaselessLiteral("combat phase")
+POSCOMBAT = CaselessLiteral("second main phase")

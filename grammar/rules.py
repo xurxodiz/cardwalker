@@ -105,9 +105,11 @@ properties << (HAVE + delimitedListAndOr(keywords)
 			| MUST + ATTACK
 )
 
-until = CaselessLiteral("until end of turn")
+step = (TURN|UPKEEP|DRAWSTEP|PRECOMBAT|COMBAT|POSCOMBAT|TURN)
+step_time = Optional(AT + THE) + (BEGINNING|END) + OF + (peopleposs + step|step)
+until = UNTIL + step_time
 
-continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until)
+continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until) + Optional(unless)
 
 condition << Group(ENTER + zone
 		| LEAVE + zone
@@ -116,6 +118,7 @@ condition << Group(ENTER + zone
 		| DRAW + objects
 		| LOSE + LIFE
 		| ATTACK + ALONE
+		| people + CONTROL + objects
 )
 
 effect << Group(DESTROY + objects
@@ -142,7 +145,12 @@ trigger = condition
 intervif = Literal("FILLER")
 unless = Literal("FILLER")
 
-trigger_clause = WHEN + subject + trigger + Optional(COMMA + intervif)
+when_trigger = WHEN + subject + trigger
+
+trigger_clause = (when_trigger
+	| step_time
+) + Optional(COMMA + intervif)
+
 oneshot = Optional(subject) + delimitedListAnd(effect) + Optional(unless)
 
 triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
