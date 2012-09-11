@@ -1,6 +1,7 @@
-Cower in Fear
-1BB
-Instant
-Creatures your opponents control get -1/-1 until end of turn.
-M13-U
+Tormented Soul
+B
+Creature -- Spirit
+1/1
+Tormented Soul can't block and is unblockable.
+M12-C, PC2-C, M13-C
 

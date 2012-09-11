@@ -7,7 +7,7 @@ from mana import *
 from rules import *
 
 card = (cardname + EOL
-	+ cardcost + EOL
+	+ Optional(cardcost + EOL)
 	+ cardtypeline + EOL
 	+ Optional(cardpt + EOL)
 	+ Optional(cardrules + EOL)

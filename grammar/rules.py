@@ -5,10 +5,15 @@ from mana import *
 from pt import *
 from constants import *
 
+quantity = (number
+		| fullnumber
+		| UPTO + fullnumber
+		| fullnumber
+)
+
 det = Group(TARGET
-	| UPTO + fullnumber + TARGET
-	| fullnumber + TARGET
-	| fullnumber
+	| quantity + TARGET
+	| quantity
 	| (THIS|THAT)
 	| AN
 	| OTHER
@@ -59,6 +64,10 @@ objects = Group(delimitedListAndOr(det + obj | obj)
 mayer = people + Optional(MAY + Optional(people|objects))
 subject = (mayer|people|objects)
 
+protection = Group(PROTECTION + delimitedListAnd(FROM + color))
+
+landwalk = (or_cl (["mountainwalk", "forestwalk", "swampwalk", "islandwalk", "plainswalk"]))
+
 keyword = (or_cl (["Flying",
 				"Deathtouch",
 				"Trample",
@@ -68,25 +77,32 @@ keyword = (or_cl (["Flying",
 				"Intimidate",
 				"Exalted",
 				"Lifelink", 
+				"Hexproof",
 				"First strike"])
-		| Group(CaselessLiteral("Protection") + delimitedListAnd(FROM + color))
+		| protection
+		| landwalk
 )
 
 indestructible = CaselessLiteral("indestructible")
 unblockable = CaselessLiteral("unblockable")
 
-reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
-keywords = delimitedListAnd(keyword+Optional(reminder))
+keywords = delimitedListAnd(keyword)
+
+triggered = Forward()
 
 properties << (HAVE + delimitedListAndOr(keywords)
 			| GET + ptmod
 			| BE + indestructible
 			| BE + unblockable
+			| GAIN + delimitedListAnd(keywords | ptmod | (QUOTE + triggered + QUOTE))
+			| GAIN + CONTROL + OF + objects
+			| CANT + BLOCK
+			| MUST + ATTACK
 )
 
 until = CaselessLiteral("until end of turn")
 
-continuous << subject +  delimitedListAndOr(properties) + Optional(until)
+continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until)
 
 condition << Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("leaves the battlefield")
@@ -99,15 +115,17 @@ condition << Group(CaselessLiteral("enters the battlefield")
 
 effect << Group(DESTROY + objects
 		| EXILE + objects
-		| GAIN + number + LIFE
+		| GAIN + quantity + LIFE
 		| TAP + objects
+		| UNTAP + objects
 		| DRAW + objects
 		| DISCARD + objects + Optional(ATRANDOM)
-		| LOSE + number + LIFE
-		| DEAL + number + DAMAGE + TO + objects
+		| LOSE + quantity + LIFE
+		| DEAL + quantity + DAMAGE + TO + objects
 		| DEAL + DAMAGE + TO + objects
 		| SACRIFICE + objects
-		| PAY + number + LIFE
+		| PAY + quantity + LIFE
+		| PUT + (quantity|AN|ANOTHER) + ptmod + COUNTER + ON + objects 
 ) # + Optional(equal|for_)
 
 trigger = condition
@@ -120,6 +138,7 @@ oneshot = Optional(subject) + delimitedListAnd(effect) + Optional(unless)
 
 triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 
-rule = Group(triggered|keywords|continuous|oneshot) + Optional(POINT)
+reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
+rule = Group(triggered|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
 
 cardrules = delimitedList(rule, EOL)

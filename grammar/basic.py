@@ -33,6 +33,7 @@ ASTERISK = Literal("*")
 PLUS = Literal("+")
 MINUS = Literal("-")
 
+QUOTE = Suppress("\"")
 COMMA = Suppress(",")
 POINT = Suppress(".")
 LPAREN = Suppress("(")
