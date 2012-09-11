@@ -46,5 +46,3 @@ caps = or_cl ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 number = OneOrMore(digit)
 
 fullnumber = or_cl (["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
-
-cardname = Group(Word(alphas + " '"))

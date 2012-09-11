@@ -1,8 +1,14 @@
 from grammar.card import *
+import sys
 
 total, cleared = 0, 0
 
-path = "oracle/workingset.txt"
+single = (len(sys.argv) > 1)
+
+if single:
+    path = "oracle/card.txt"
+else:
+    path = "oracle/workingset.txt"
 
 def parse(str):
     global cleared, total
@@ -26,8 +32,12 @@ with open(path, "r") as f:
 
     for line in f:
         if not line.strip():
-            parse(storage)
+            if single:
+                deep_parse(storage)
+            else:
+                parse(storage)
             storage = ""
         else:
             storage += line
-    print "Passed %s out of %s" % (cleared, total)
+    if not single:
+        print "Passed %s out of %s" % (cleared, total)

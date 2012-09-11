@@ -6,12 +6,17 @@ from pt import *
 from constants import *
 
 det = Group(TARGET
-	| Optional(UPTO) + fullnumber + TARGET
+	| UPTO + fullnumber + TARGET
+	| fullnumber + TARGET
+	| fullnumber
 	| (THIS|THAT)
 	| AN
+	| OTHER
+	| ANOTHER
 	| HIS
 	| ALL
 	| EACH
+	| YOUR
 )
 
 peopleposs = Group(YOUR
@@ -26,7 +31,7 @@ zone = Group (peopleposs + (GRAVEYARD|HAND|LIBRARY)
 
 adj = Group(delimitedListAndOr(color | nontype | supertype))
 
-people = Optional(det) + (YOU | PLAYER | OPPONENT)
+people = Group(Optional(det) + (YOU | PLAYER | OPPONENT))
 
 where = Group(people + CONTROL
 		| IN + zone
@@ -34,12 +39,25 @@ where = Group(people + CONTROL
 
 concept = SPELL | PERMANENT | CARD | ABILITY
 
-obj = (Optional(adj)
+obj = Group(Optional(adj)
 	+ delimitedListAndOr(subtype | type_ | concept)
 	+ Optional(where)
 )
 
-objects = Group(delimitedListAndOr(det + obj | obj))
+properties = Forward()
+condition = Forward()
+effect = Forward()
+continuous = Forward()
+
+cardname = Group(OneOrMore(~(condition|effect|properties) + Word(alphas + "',")))
+
+objects = Group(delimitedListAndOr(det + obj | obj)
+	| IT
+	| cardname
+)
+
+mayer = people + Optional(MAY + Optional(people|objects))
+subject = (mayer|people|objects)
 
 keyword = (or_cl (["Flying",
 				"Deathtouch",
@@ -60,7 +78,7 @@ unblockable = CaselessLiteral("unblockable")
 reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
 keywords = delimitedListAnd(keyword+Optional(reminder))
 
-properties = (HAVE + delimitedListAndOr(keywords)
+properties << (HAVE + delimitedListAndOr(keywords)
 			| GET + ptmod
 			| BE + indestructible
 			| BE + unblockable
@@ -68,9 +86,9 @@ properties = (HAVE + delimitedListAndOr(keywords)
 
 until = CaselessLiteral("until end of turn")
 
-continuous = objects + delimitedListAndOr(properties) + Optional(until)
+continuous << subject +  delimitedListAndOr(properties) + Optional(until)
 
-condition = Group(CaselessLiteral("enters the battlefield")
+condition << Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("leaves the battlefield")
 		| CaselessLiteral("dies")
 		| GAIN + LIFE
@@ -79,42 +97,29 @@ condition = Group(CaselessLiteral("enters the battlefield")
 		| CaselessLiteral("attacks alone")
 )
 
-effect = Group(DESTROY + objects
+effect << Group(DESTROY + objects
 		| EXILE + objects
 		| GAIN + number + LIFE
 		| TAP + objects
-		| continuous
-		| DISCARD + objects + Optional(RANDOM)
+		| DRAW + objects
+		| DISCARD + objects + Optional(ATRANDOM)
 		| LOSE + number + LIFE
 		| DEAL + number + DAMAGE + TO + objects
 		| DEAL + DAMAGE + TO + objects
 		| SACRIFICE + objects
+		| PAY + number + LIFE
 ) # + Optional(equal|for_)
 
 trigger = condition
 
-triggerer = Optional(THIS) + (objects
-	| people
-	| (SkipTo(trigger))
-)
-
-nonmayer = (objects
-	| people
-	| IT
-	| (cardname + SkipTo(effect))
-)
-mayer = people + MAY + Optional(nonmayer) 
-effecter = (mayer|nonmayer)
-
-
 intervif = Literal("FILLER")
 unless = Literal("FILLER")
 
-trigger_clause = WHEN + triggerer + trigger + Optional(COMMA + intervif)
-effect_clause = Optional(effecter) + effect + Optional(unless)
+trigger_clause = WHEN + subject + trigger + Optional(COMMA + intervif)
+oneshot = Optional(subject) + delimitedListAnd(effect) + Optional(unless)
 
-triggered = Group(trigger_clause) + COMMA + Group(effect_clause)
+triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 
-rule = Group(triggered|keywords|continuous|effect_clause) + Optional(POINT)
+rule = Group(triggered|keywords|continuous|oneshot) + Optional(POINT)
 
 cardrules = delimitedList(rule, EOL)

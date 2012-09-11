@@ -1,6 +1,6 @@
-Mind Rot
-2B
-Sorcery
-Target player discards two cards.
-P1-C, P2-C, S99-C, 7E-C, 8ED-C, 9ED-C, 10E-C, M10-C, M11-C, M12-C, M13-C
+Cower in Fear
+1BB
+Instant
+Creatures your opponents control get -1/-1 until end of turn.
+M13-U
 
