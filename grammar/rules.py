@@ -9,34 +9,34 @@ quantity = (number
 		| fullnumber
 		| UPTO + fullnumber
 		| fullnumber
+		| AN
+		| ANOTHER
 )
 
 det = Group(TARGET
 	| quantity + TARGET
 	| quantity
 	| (THIS|THAT)
-	| AN
 	| OTHER
-	| ANOTHER
 	| HIS
 	| ALL
 	| EACH
 	| YOUR
+	| ITS
 )
 
+people = Group(Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER))
+
 peopleposs = Group(YOUR
-		| det + PLAYER + POSS
-		| det + OPPONENT + POSS
-		| det
+		| people + POSS
 )
 
 zone = Group (peopleposs + (GRAVEYARD|HAND|LIBRARY)
+		| det + delimitedListAndOr(GRAVEYARD|HAND|LIBRARY)
 		| THE + BATTLEFIELD
 )
 
 adj = Group(delimitedListAndOr(color | nontype | supertype))
-
-people = Group(Optional(det) + (YOU | PLAYER | OPPONENT))
 
 where = Group(people + CONTROL
 		| IN + zone
@@ -58,11 +58,16 @@ cardname = Group(OneOrMore(~(condition|effect|properties) + Word(alphas + "',"))
 
 objects = Group(delimitedListAndOr(det + obj | obj)
 	| IT
+	| peopleposs + LIFE + TOTAL
 	| cardname
 )
 
+peopleres = Group(peopleposs + LIFE + TOTAL
+	| peopleposs + HAND + SIZE
+)
+
 mayer = people + Optional(MAY + Optional(people|objects))
-subject = (mayer|people|objects)
+subject = (peopleres|mayer|people|objects)
 
 protection = Group(PROTECTION + delimitedListAnd(FROM + color))
 
@@ -104,17 +109,17 @@ until = CaselessLiteral("until end of turn")
 
 continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until)
 
-condition << Group(CaselessLiteral("enters the battlefield")
-		| CaselessLiteral("leaves the battlefield")
-		| CaselessLiteral("dies")
+condition << Group(ENTER + zone
+		| LEAVE + zone
+		| DIE
 		| GAIN + LIFE
 		| DRAW + objects
 		| LOSE + LIFE
-		| CaselessLiteral("attacks alone")
+		| ATTACK + ALONE
 )
 
 effect << Group(DESTROY + objects
-		| EXILE + objects
+		| EXILE + objects + Optional(Group(FROM + delimitedListAnd(zone)))
 		| GAIN + quantity + LIFE
 		| TAP + objects
 		| UNTAP + objects
@@ -125,7 +130,11 @@ effect << Group(DESTROY + objects
 		| DEAL + DAMAGE + TO + objects
 		| SACRIFICE + objects
 		| PAY + quantity + LIFE
-		| PUT + (quantity|AN|ANOTHER) + ptmod + COUNTER + ON + objects 
+		| PUT + quantity + ptmod + COUNTER + ON + objects 
+		| PUT + quantity + cardpt + objects + Optional(WITH + delimitedListAnd(keywords)) + ONTO + zone
+		| BECOME + number # for life totals
+		| BE + REDUCED + BY + number
+		| RETURN + objects + Optional(FROM + delimitedListAnd(zone)) + TO + zone
 ) # + Optional(equal|for_)
 
 trigger = condition
@@ -141,4 +150,4 @@ triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
 rule = Group(triggered|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
 
-cardrules = delimitedList(rule, EOL)
+cardrules = delimitedList(rule, Optional(EOL))

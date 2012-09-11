@@ -1,7 +1,6 @@
-Tormented Soul
-B
-Creature -- Spirit
-1/1
-Tormented Soul can't block and is unblockable.
-M12-C, PC2-C, M13-C
+Unsummon
+U
+Instant
+Return target creature to its owner's hand.
+A-C, B-C, U-C, RV-C, 4E-C, 5E-C, 6E-C, 7E-C, 8ED-C, 10E-C, CON-C, M10-C, M11-C, M12-C, M13-C
 
