@@ -5,4 +5,9 @@ ptchange = Group((PLUS | MINUS) + number)
 ptquantity = ASTERISK | number | (ASTERISK + ptchange)
 ptmod = Group(ptchange + Suppress(SLASH) + ptchange)
 
-cardpt = Group(ptquantity + Suppress(SLASH) + ptquantity)
+XCHANGE = Literal("X")
+
+loyalty = number
+loyaltycost = Group(LBRACKET + Optional(PLUS|MINUS) + (number|XCHANGE) + RBRACKET)
+
+cardpt = Group(ptquantity + Suppress(SLASH) + ptquantity)|Group(loyalty)

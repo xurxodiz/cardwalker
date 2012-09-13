@@ -86,12 +86,12 @@ nontype = Group(CaselessLiteral("Non") + (supertype | subtype | type_))
 
 supertypes = OneOrMore(supertype)
 
-types = OneOrMore(type_)
+types_ = OneOrMore(type_)
 
 subtypes = OneOrMore(subtype)
 
 cardtypeline = Group(
 	Optional(supertypes)
-	+ types
+	+ types_
 	+ Optional(Suppress(DASH) + subtypes)
 )

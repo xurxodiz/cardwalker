@@ -4,42 +4,67 @@ from types import *
 from mana import *
 from pt import *
 from constants import *
+from ckeywords import *
 
-quantity = (number
+quantity = ( \
+		number
 		| fullnumber
 		| UPTO + fullnumber
 		| fullnumber
 		| AN
 		| ANOTHER
+		| ALL
+		| XVAR
 )
 
-det = Group(TARGET
+peopleposs = Forward()
+
+det = Group( \
+	TARGET
 	| quantity + TARGET
 	| quantity
+	| peopleposs
 	| (THIS|THAT)
 	| OTHER
-	| HIS
-	| ALL
 	| EACH
-	| YOUR
 	| ITS
+	| THE
 )
 
 people = Group(Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER))
 
 peopleposs = Group(YOUR
+		| THEIR
+		| HIS
 		| people + POSS
 )
 
-zone = Group (peopleposs + (GRAVEYARD|HAND|LIBRARY)
+zone = Group ( \
+		peopleposs + (GRAVEYARD|HAND|LIBRARY)
 		| det + delimitedListAndOr(GRAVEYARD|HAND|LIBRARY)
-		| THE + BATTLEFIELD
+		| THE + BATTLEFIELD 
+		| THE + TOP + OF + peopleposs + LIBRARY
 )
 
-adj = Group(delimitedListAndOr(color | nontype | supertype))
+adj = Group(delimitedListAndOr( \
+	color
+	| nontype
+	| supertype
+	| (TOP|BOTTOM) + number
+	# coming next: participles
+	| TAP
+	| UNTAP
+	| ENCHANT
+	| EQUIP
+	| EXILE
+	| SACRIFICE
+	| HAUNT
+))
 
 where = Group(people + CONTROL
 		| IN + zone
+		| OF + zone
+		| FROM + zone
 )
 
 concept = SPELL | PERMANENT | CARD | ABILITY
@@ -54,51 +79,31 @@ condition = Forward()
 effect = Forward()
 continuous = Forward()
 
-cardname = Group(OneOrMore(~(condition|effect|properties) + Word(alphas + "',")))
+cardname = Group(OneOrMore(~(condition|effect|properties|FROM) + Word(alphas + "',")))
 
-objects = Group(delimitedListAndOr(det + obj | obj)
+objects << Group(\
+	delimitedListAndOr(det + obj | obj)
 	| IT
 	| peopleposs + LIFE + TOTAL
+	| det + TOP + fullnumber + CARD + OF + zone
 	| cardname
 )
 
-peopleres = Group(peopleposs + LIFE + TOTAL
+peopleres = Group( \
+	peopleposs + LIFE + TOTAL
 	| peopleposs + HAND + SIZE
 )
 
 mayer = people + Optional(MAY + Optional(people|objects))
 subject = (peopleres|mayer|people|objects)
 
-protection = Group(PROTECTION + delimitedListAnd(FROM + color))
-
-landwalk = (or_cl (["mountainwalk", "forestwalk", "swampwalk", "islandwalk", "plainswalk"]))
-
-keyword = (or_cl (["Flying",
-				"Deathtouch",
-				"Trample",
-				"Haste",
-				"Flash",
-				"Vigilance",
-				"Intimidate",
-				"Exalted",
-				"Lifelink", 
-				"Hexproof",
-				"First strike"])
-		| protection
-		| landwalk
-)
-
-indestructible = CaselessLiteral("indestructible")
-unblockable = CaselessLiteral("unblockable")
-
-keywords = delimitedListAnd(keyword)
-
 triggered = Forward()
 
-properties << (HAVE + delimitedListAndOr(keywords)
+properties << (\
+			HAVE + delimitedListAndOr(keywords)
 			| GET + ptmod
-			| BE + indestructible
-			| BE + unblockable
+			| BE + INDESTRUCTIBLE
+			| BE + UNBLOCKABLE
 			| GAIN + delimitedListAnd(keywords | ptmod | (QUOTE + triggered + QUOTE))
 			| GAIN + CONTROL + OF + objects
 			| CANT + BLOCK
@@ -109,9 +114,16 @@ step = (TURN|UPKEEP|DRAWSTEP|PRECOMBAT|COMBAT|POSCOMBAT|TURN)
 step_time = Optional(AT + THE) + (BEGINNING|END) + OF + (peopleposs + step|step)
 until = UNTIL + step_time
 
+intervif = Literal("FILLER")
+unless = Literal("FILLER")
+undercontrol = Group( \
+			UNDER + peopleposs + CONTROL
+)
+
 continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until) + Optional(unless)
 
-condition << Group(ENTER + zone
+condition << Group( \
+		ENTER + zone + Optional(undercontrol)
 		| LEAVE + zone
 		| DIE
 		| GAIN + LIFE
@@ -121,7 +133,30 @@ condition << Group(ENTER + zone
 		| people + CONTROL + objects
 )
 
-effect << Group(DESTROY + objects
+lifepay = PAY + quantity + LIFE
+
+prevention = (PREVENT + Optional(THE + NEXT) + quantity
+		+ DAMAGE + Literal("that would be dealt")
+		+ Optional(BY|TO) + objects
+		+ FROM + SOURCE + WITH + keywords
+)
+
+cantregenerate = subject + CANT + BE + REGENERATE
+
+where = ( \
+	WHERE + XVAR + BE + Optional(THE+NUMBER+OF) + objects
+)
+
+equal = ( \
+	EQUAL + TO + THE + NUMBER + OF + objects
+)
+
+for_ = ( \
+	FOR + EACH + objects
+)
+
+effect << Group( \
+		DESTROY + objects + Optional(cantregenerate)
 		| EXILE + objects + Optional(Group(FROM + delimitedListAnd(zone)))
 		| GAIN + quantity + LIFE
 		| TAP + objects
@@ -132,18 +167,29 @@ effect << Group(DESTROY + objects
 		| DEAL + quantity + DAMAGE + TO + objects
 		| DEAL + DAMAGE + TO + objects
 		| SACRIFICE + objects
-		| PAY + quantity + LIFE
+		| REGENERATE + objects
 		| PUT + quantity + ptmod + COUNTER + ON + objects 
-		| PUT + quantity + cardpt + objects + Optional(WITH + delimitedListAnd(keywords)) + ONTO + zone
+		| PUT + Optional(quantity + cardpt) + objects + Optional(WITH + delimitedListAnd(keywords)) + (INTO|ONTO) + zone
 		| BECOME + number # for life totals
-		| BE + REDUCED + BY + number
-		| RETURN + objects + Optional(FROM + delimitedListAnd(zone)) + TO + zone
-) # + Optional(equal|for_)
+		| BE + REDUCE + BY + number
+		| RETURN + objects + Optional(FROM + delimitedListAnd(zone)) + TO + zone + Optional(undercontrol)
+		| lifepay
+		| PAY + manapayment
+		| prevention
+		| ADD + manapayment + TO + peopleposs + MANA + POOL
+		| COUNTER + objects
+) + Optional( \
+	for_
+	| COMMA + (where|equal)
+)
+
+oneshot << Optional(subject) + delimitedListAnd(effect) + Optional(unless)
+
+cost = (TAPSYMBOL | UNTAPSYMBOL | effect | lifepay | manapayment | loyaltycost)
+
+activated = delimitedList(cost) + COLON + (oneshot|continuous)
 
 trigger = condition
-
-intervif = Literal("FILLER")
-unless = Literal("FILLER")
 
 when_trigger = WHEN + subject + trigger
 
@@ -151,11 +197,9 @@ trigger_clause = (when_trigger
 	| step_time
 ) + Optional(COMMA + intervif)
 
-oneshot = Optional(subject) + delimitedListAnd(effect) + Optional(unless)
-
 triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 
 reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
-rule = Group(triggered|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
+rule = Group(triggered|activated|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
 
-cardrules = delimitedList(rule, Optional(EOL))
+cardrules << delimitedList(rule, Optional(EOL))
