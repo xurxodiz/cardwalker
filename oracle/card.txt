@@ -1,9 +1,2 @@
-Liliana of the Dark Realms
-2BB
-Planeswalker -- Liliana
-3
-[+1]: Search your library for a Swamp card, reveal it, and put it into your hand. Then shuffle your library.
-[-3]: Target creature gets +X/+X or -X/-X until end of turn, where X is the number of Swamps you control.
-[-6]: You get an emblem with "Swamps you control have '{T}: Add {B}{B}{B}{B} to your mana pool.'"
-M13-M
+players
 

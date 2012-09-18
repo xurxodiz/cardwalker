@@ -1,20 +1,19 @@
 from pyparsing import *
-from constants import *
-from mana import *
+from definitions import *
+from basic import *
 from types import *
+from mana import *
+from rules import *
 
-PROTECTION = CaselessLiteral("Protection")
-WALK = CaselessLiteral("Walk")
-ENCHANT = CaselessLiteral("Enchant")
+PROTECTION << CaselessLiteral("Protection")
+WALK << CaselessLiteral("Walk")
+ENCHANT << CaselessLiteral("Enchant")
 
-cardrules = Forward()
-oneshot = Forward()
-
-landwalk = (
+landwalk << (
 		basic_land_type + WALK
 )
 
-basic_keyword = or_cl ([ \
+basic_keyword << or_cl ([ \
 				"Flying",
 				"Deathtouch",
 				"Trample",
@@ -62,7 +61,7 @@ basic_keyword = or_cl ([ \
 				"Defender"
 ])
 
-number_keyword = or_cl([ \
+number_keyword << or_cl([ \
 					"Rampage",
 					"Soulshifting",
 					"Bushido",
@@ -83,17 +82,17 @@ number_keyword = or_cl([ \
 					"Ripple",
 ])
 
-EQUIP = or_cl(["equip", "equipped"])
-FORTIFY = or_cl(["fortify", "fortified"])
-HAUNT = or_cl(["haunt", "haunted"])
-ENCHANT = or_cl(["enchant", "enchanted"])
+EQUIP << or_cl(["equip", "equipped"])
+FORTIFY << or_cl(["fortify", "fortified"])
+HAUNT << or_cl(["haunt", "haunted"])
+ENCHANT << or_cl(["enchant", "enchanted"])
 
 
-CYCLING = CaselessLiteral("Cycling")
-cycling = Group(Optional(basic_land_type|subtype) + CYCLING)
+CYCLING << CaselessLiteral("Cycling")
+cycling << Group(Optional(basic_land_type|subtype) + CYCLING)
 
 
-costed_keyword = (or_cl([ \
+costed_keyword << (or_cl([ \
 					"Morph",
 					"Kicker",
 					"Multickicker",
@@ -124,9 +123,9 @@ costed_keyword = (or_cl([ \
 				| cycling
 )
 
-protection = Group(PROTECTION + delimitedListAnd(FROM + color))
+protection << Group(PROTECTION + delimitedListAnd(FROM + color))
 
-ability_keyword = (or_cl([ \
+ability_keyword << (or_cl([ \
 				"Cumulative upkeep",
 				"Domain",
 				"Channel",
@@ -147,10 +146,9 @@ ability_keyword = (or_cl([ \
 
 ]))
 
-objects = Forward()
-enchant = ENCHANT + objects
+enchant << ENCHANT + objects
 
-keywords = delimitedListAnd( \
+keywords << delimitedListAnd( \
 		basic_keyword
 		| number_keyword + (XVAR|number|(DASH + cardrules))
 		| costed_keyword + (manapayment|(DASH + oneshot)) 
@@ -161,5 +159,5 @@ keywords = delimitedListAnd( \
 		| enchant
 )
 
-INDESTRUCTIBLE = CaselessLiteral("indestructible")
-UNBLOCKABLE = CaselessLiteral("unblockable")
+INDESTRUCTIBLE << CaselessLiteral("indestructible")
+UNBLOCKABLE << CaselessLiteral("unblockable")

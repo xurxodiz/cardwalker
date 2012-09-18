@@ -1,12 +1,11 @@
 from pyparsing import *
+from definitions import *
+from mana import *
 from basic import *
 from types import *
-from mana import *
 from pt import *
-from constants import *
-from ckeywords import *
 
-quantity = ( \
+quantity << ( \
 		number
 		| fullnumber
 		| UPTO + fullnumber
@@ -17,9 +16,7 @@ quantity = ( \
 		| XVAR
 )
 
-peopleposs = Forward()
-
-det = Group( \
+det << Group( \
 	TARGET
 	| quantity + TARGET
 	| quantity
@@ -31,22 +28,22 @@ det = Group( \
 	| THE
 )
 
-people = Group(Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER))
+people << Group(Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER))
 
-peopleposs = Group(YOUR
+peopleposs << Group(YOUR
 		| THEIR
 		| HIS
 		| people + POSS
 )
 
-zone = Group ( \
+zone << Group ( \
 		peopleposs + (GRAVEYARD|HAND|LIBRARY)
 		| det + delimitedListAndOr(GRAVEYARD|HAND|LIBRARY)
 		| THE + BATTLEFIELD 
 		| THE + TOP + OF + peopleposs + LIBRARY
 )
 
-adj = Group(delimitedListAndOr( \
+adj << Group(delimitedListAndOr( \
 	color
 	| nontype
 	| supertype
@@ -61,25 +58,25 @@ adj = Group(delimitedListAndOr( \
 	| HAUNT
 ))
 
-where = Group(people + CONTROL
+where << Group(people + CONTROL
 		| IN + zone
 		| OF + zone
 		| FROM + zone
 )
 
-concept = SPELL | PERMANENT | CARD | ABILITY
+concept << (SPELL | PERMANENT | CARD | ABILITY)
 
-obj = Group(Optional(adj)
+obj << Group(Optional(adj)
 	+ delimitedListAndOr(subtype | type_ | concept)
 	+ Optional(where)
 )
 
-properties = Forward()
-condition = Forward()
-effect = Forward()
-continuous = Forward()
+properties << Forward()
+condition << Forward()
+effect << Forward()
+continuous << Forward()
 
-cardname = Group(OneOrMore(~(condition|effect|properties|FROM) + Word(alphas + "',")))
+cardname << Group(OneOrMore(~(condition|effect|properties|FROM) + Word(alphas + "',")))
 
 objects << Group(\
 	delimitedListAndOr(det + obj | obj)
@@ -89,15 +86,15 @@ objects << Group(\
 	| cardname
 )
 
-peopleres = Group( \
+peopleres << Group( \
 	peopleposs + LIFE + TOTAL
 	| peopleposs + HAND + SIZE
 )
 
-mayer = people + Optional(MAY + Optional(people|objects))
-subject = (peopleres|mayer|people|objects)
+mayer << people + Optional(MAY + Optional(people|objects))
+subject << (peopleres|mayer|people|objects)
 
-triggered = Forward()
+triggered << Forward()
 
 properties << (\
 			HAVE + delimitedListAndOr(keywords)
@@ -110,13 +107,13 @@ properties << (\
 			| MUST + ATTACK
 )
 
-step = (TURN|UPKEEP|DRAWSTEP|PRECOMBAT|COMBAT|POSCOMBAT|TURN)
-step_time = Optional(AT + THE) + (BEGINNING|END) + OF + (peopleposs + step|step)
-until = UNTIL + step_time
+step << (TURN|UPKEEP|DRAWSTEP|PRECOMBAT|COMBAT|POSCOMBAT|TURN)
+step_time << Optional(AT + THE) + (BEGINNING|END) + OF + (peopleposs + step|step)
+until << UNTIL + step_time
 
-intervif = Literal("FILLER")
-unless = Literal("FILLER")
-undercontrol = Group( \
+intervif << Literal("FILLER")
+unless << Literal("FILLER")
+undercontrol << Group( \
 			UNDER + peopleposs + CONTROL
 )
 
@@ -133,25 +130,25 @@ condition << Group( \
 		| people + CONTROL + objects
 )
 
-lifepay = PAY + quantity + LIFE
+lifepay << PAY + quantity + LIFE
 
-prevention = (PREVENT + Optional(THE + NEXT) + quantity
+prevention << (PREVENT + Optional(THE + NEXT) + quantity
 		+ DAMAGE + Literal("that would be dealt")
 		+ Optional(BY|TO) + objects
 		+ FROM + SOURCE + WITH + keywords
 )
 
-cantregenerate = subject + CANT + BE + REGENERATE
+cantregenerate << subject + CANT + BE + REGENERATE
 
-where = ( \
+where << ( \
 	WHERE + XVAR + BE + Optional(THE+NUMBER+OF) + objects
 )
 
-equal = ( \
+equal << ( \
 	EQUAL + TO + THE + NUMBER + OF + objects
 )
 
-for_ = ( \
+for_ << ( \
 	FOR + EACH + objects
 )
 
@@ -185,21 +182,21 @@ effect << Group( \
 
 oneshot << Optional(subject) + delimitedListAnd(effect) + Optional(unless)
 
-cost = (TAPSYMBOL | UNTAPSYMBOL | effect | lifepay | manapayment | loyaltycost)
+cost << (TAPSYMBOL | UNTAPSYMBOL | effect | lifepay | manapayment | loyaltycost)
 
-activated = delimitedList(cost) + COLON + (oneshot|continuous)
+activated << delimitedList(cost) + COLON + (oneshot|continuous)
 
-trigger = condition
+trigger << condition
 
-when_trigger = WHEN + subject + trigger
+when_trigger << WHEN + subject + trigger
 
-trigger_clause = (when_trigger
+trigger_clause << (when_trigger
 	| step_time
 ) + Optional(COMMA + intervif)
 
-triggered = Group(trigger_clause) + COMMA + Group(oneshot|continuous)
+triggered << Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 
-reminder = Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
-rule = Group(triggered|activated|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
+reminder << Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
+rule << Group(triggered|activated|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
 
 cardrules << delimitedList(rule, Optional(EOL))

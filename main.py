@@ -1,4 +1,4 @@
-from grammar.card import *
+from grammar.card.deff import card
 import sys
 
 total, cleared = 0, 0
