@@ -6,7 +6,6 @@ EOL = Forward()
 
 APOS = Forward()
 
-ASTERISK = Forward()
 PLUS = Forward()
 MINUS = Forward()
 
@@ -21,13 +20,14 @@ RBRACE = Forward()
 LBRACKET = Forward()
 RBRACKET = Forward()
 
+XVAR = Forward().setParseAction(lambda x: "X")
 SLASH = Forward()
 DASH = Forward()
 COLON = Forward()
 
 DIGIT = Forward()
-NUMBER = Forward().setParseAction(lambda x: int(x))
-FULLNUMBER = Forward().setParseAction(act.fullnumber)
+NUM = Forward().setParseAction(lambda x: int(x[0]))
+FULLNUM = Forward().setParseAction(act.fullnum)
 
 UPPERCASE = Forward()
 

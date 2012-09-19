@@ -1,9 +1,9 @@
 from pyparsing import *
 
-from ..basic.constants.deff import card
-#from types import cardtypeline
-#from pt import cardpt
-from ..expansions import cardexpansions
+from ..basic.constants.deff import *
+#from ..types import cardtypeline
+from ..ptl.deff import cardptl
+from ..exp.deff import cardexpansions
 
 from decl import *
 
@@ -19,10 +19,10 @@ card = (cardname + EOL
 )
 """
 
-cardtypeline = (PLAYER|OPPONENT)
+#cardtypeline = (PLAYER|OPPONENT)
 
 card << (
-	cardtypeline #+ EOL
-	#+ cardpt + EOL
-	#+ cardexpansions + EOL
+	#cardtypeline + EOL
+	cardptl + EOL
+	+ cardexpansions + EOL
 )

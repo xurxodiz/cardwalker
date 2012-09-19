@@ -2,32 +2,32 @@ from pyparsing import *
 
 from decl import *
 
-EOL << LineEnd()
+EOL << LineEnd().suppress()
+
+QUOTE << Suppress("\"")
+COMMA << Suppress(",")
+POINT << Suppress(".")
+
+LPAREN << Suppress("(")
+RPAREN << Suppress(")")
+LBRACE << Suppress("{")
+RBRACE << Suppress("}")
+LBRACKET << Suppress("[")
+RBRACKET << Suppress("]")
+SLASH << Suppress("/")
+DASH << Suppress(Word("-"))
+COLON << Suppress(":")
 
 APOS << Literal("'")
 
-ASTERISK << Literal("*")
 PLUS << Literal("+")
 MINUS << Literal("-")
 
-QUOTE << Literal("\"")
-COMMA << Literal(",")
-POINT << Literal(".")
+XVAR << (Keyword("X") | Keyword("*"))
 
-LPAREN << Literal("(")
-RPAREN << Literal(")")
-LBRACE << Literal("{")
-RBRACE << Literal("}")
-LBRACKET << Literal("[")
-RBRACKET << Literal("]")
-
-SLASH << Literal("/")
-DASH << Word("-")
-COLON << Literal(":")
-
-DIGIT << oneOf ("0 1 2 3 4 5 6 7 8 9")
-NUMBER << OneOrMore(DIGIT)
-FULLNUMBER << oneOf ("one two three four five six seven eight nine", caseless=True)
+DIGIT << oneOf("0 1 2 3 4 5 6 7 8 9")
+NUM << Combine(OneOrMore(DIGIT))
+FULLNUM << oneOf ("one two three four five six seven eight nine", caseless=True)
 
 UPPERCASE << oneOf ("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z")
 

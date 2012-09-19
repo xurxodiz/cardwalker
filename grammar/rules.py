@@ -6,14 +6,14 @@ from types import *
 from pt import *
 
 quantity << ( \
-		number
-		| fullnumber
-		| UPTO + fullnumber
-		| fullnumber
+		NUM
+		| XVAR
+		| XVAR + NUM
+		| FULLNUM
+		| UPTO + FULLNUM
 		| AN
 		| ANOTHER
 		| ALL
-		| XVAR
 )
 
 det << Group( \

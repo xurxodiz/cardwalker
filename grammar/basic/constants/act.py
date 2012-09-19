@@ -1,4 +1,4 @@
-def fullnumber(s,l,t):
+def fullnum(s,l,t):
 	if "one" == t[0]:
 		return 1
 	if "two" == t[0]:
