@@ -23,7 +23,7 @@ APOS << Literal("'")
 PLUS << Literal("+")
 MINUS << Literal("-")
 
-XVAR << (Keyword("X") | Keyword("*"))
+XVAR << (Literal("X") | Literal("*"))
 
 DIGIT << oneOf("0 1 2 3 4 5 6 7 8 9")
 NUM << Combine(OneOrMore(DIGIT))

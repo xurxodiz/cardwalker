@@ -3,8 +3,10 @@ from pyparsing import *
 def change(s,l,t):
 	if "+" == t[0]:
 		return "<increaseby>%s</increaseby>" % t[1]
-	else:
+	elif "-" == t[0]:
 		return "<decreaseby>%s</decreaseby>" % t[1]
+	else: # doesn't matter, it's zero
+		return "<increaseby>0</increaseby>"
 
 def amount(s,l,t):
 	if 2 == len(t):
@@ -14,7 +16,7 @@ def amount(s,l,t):
 		if "X" == t[0]:
 			return "<refx />"
 		else:
-			return int(t[0])
+			return "<num>%s</num>" % int(t[0])
 
 def ptmod(s,l,t):
 	return "<ptmod><power>%s</power>" \

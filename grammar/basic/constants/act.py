@@ -7,7 +7,7 @@ def fullnum(s,l,t):
 		return 3
 	if "four" == t[0]:
 		return 4
-	if "fuve" == t[0]:
+	if "five" == t[0]:
 		return 5
 	if "six" == t[0]:
 		return 6

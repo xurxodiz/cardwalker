@@ -1,8 +1,9 @@
 from pyparsing import *
 
-from def import *
-from ..basic.constants import *
-from ..basic.functions import * 
+from ..basic.constants.deff import *
+from ..basic.functions.deff import *
+
+from decl import *
 
 basic_land_type << load_from_file("oracle/ref/basic_land_type.txt")
 
@@ -26,28 +27,28 @@ tribal_type << creature_type
 
 subtype << (spell_type | enchantment_type | planeswalker_type | artifact_type | creature_type | land_type)
 
-creature << oneOf("creature creatures", caseless=True)
+creature << oneOf("Creature Creatures", caseless=True)
 
-token << oneOf("token tokens", caseless=True)
+token << oneOf("Token Tokens", caseless=True)
 
-tribal << oneOf("tribal tribals", caseless=True)
+tribal << oneOf("Tribal Tribals", caseless=True)
 
-instant << oneOf("instant instants", caseless=True)
+instant << oneOf("Instant Instants", caseless=True)
 
-sorcery << oneOf("sorcery sorceries", caseless=True)
+sorcery << oneOf("Sorcery Sorceries", caseless=True)
 
-land << oneOf("land lands", caseless=True)
+land << oneOf("Land Lands", caseless=True)
 
-artifact << oneOf("artifact artifacts", caseless=True)
+artifact << oneOf("Artifact Artifacts", caseless=True)
 
-enchantment << oneOf("enchantment enchantments", caseless=True)
+enchantment << oneOf("Enchantment Enchantments", caseless=True)
 
-planeswalker << oneOf("planeswalker planeswalkers", caseless=True)
+planeswalker << oneOf("Planeswalker Planeswalkers", caseless=True)
 
 type_ << (token | creature | tribal | instant | sorcery
 				| land | artifact | enchantment | planeswalker)
 
-nontype << Group(NON + (supertype | subtype | type_))
+nontype << NON + (supertype | subtype | type_)
 
 supertypes << OneOrMore(supertype)
 
@@ -55,8 +56,8 @@ types_ << OneOrMore(type_)
 
 subtypes << OneOrMore(subtype)
 
-cardtypeline << Group(
-	Optional(Group(supertypes))
-	+ Group(types_)
-	+ Optional(Group(Suppress(DASH) + subtypes))
-)
+cardtypeline << (
+	Optional(supertypes)
+	+ types_
+	+ Optional(Suppress(DASH) + subtypes)
+) + EOL

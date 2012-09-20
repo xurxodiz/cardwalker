@@ -1,7 +1,8 @@
 from pyparsing import *
 
 from ..basic.constants.deff import *
-#from ..types import cardtypeline
+from ..types.deff import cardtypeline
+from ..mana.deff import cardcost
 from ..ptl.deff import cardptl
 from ..exp.deff import cardexpansions
 
@@ -22,7 +23,8 @@ card = (cardname + EOL
 #cardtypeline = (PLAYER|OPPONENT)
 
 card << (
-	#cardtypeline + EOL
-	cardptl + EOL
-	+ cardexpansions + EOL
+	cardcost
+	+ cardtypeline
+	+ cardptl
+	+ cardexpansions
 )
