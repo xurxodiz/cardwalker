@@ -1,18 +1,26 @@
 from pyparsing import *
 
-def load_from_file(path, ignoreCase=True):
+from ..constants.deff import COMMA, AND
+
+def delimitedListAnd(elem):
+	lim = Optional(COMMA+AND|COMMA|AND)
+	return delimitedList(elem, lim)
+
+def oneOfNamed(ssv):
+	return oneOf(ssv, True).setResultsName(ssv.split()[0])
+
+def load_from_file(path):
 	with open(path) as f:
-		lst = []
-		for x in f.read().splitlines():
-			o = oneOf(x, ignoreCase).setResultsName(x.split()[0])
-			lst.append(o)
-		return Or(lst)
+		return Or([oneOfNamed(line) for line in f.read().splitlines()])
 
 def wrap(tag, lst):
 	return "<%s>%s</%s>" % (tag.lower(), "".join(lst), tag.lower())
 
 def emptytag(tag):
 	return "<%s />" % tag.lower()
+
+def lowername(dct):
+	return dct.keys()[0].lower()
 
 """
 def or_cl(lst):
@@ -23,10 +31,6 @@ def or_l(lst):
 
 def or_cs(lst):
 	return Suppress(or_cl(lst)) #Or(map(Suppress, map(CaselessLiteral, lst)))
-
-def delimitedListAnd(elem):
-	helper = Suppress(AND) + elem | elem
-	return delimitedList(helper, Optional(COMMA))
 
 def delimitedListOr(elem):
 	helper = Suppress(OR) + elem | elem

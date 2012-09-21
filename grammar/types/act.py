@@ -1,13 +1,13 @@
 from ..basic.functions.deff import *
 
 def type_(s,l,t):
-	return "<type type='%s' />" % (t.keys()[0].lower())
+	return "<type type='%s' />" % lowername(t)
 
 def supertype(s,l,t):
-	return "<supertype type='%s' />" % (t.keys()[0].lower())
+	return "<supertype type='%s' />" % lowername(t)
 
 def subtype(s,l,t):
-	return "<subtype type='%s' />" % (t.keys()[0].lower())
+	return "<subtype type='%s' />" % lowername(t)
 
 def nontype(s,l,t):
 	return wrap("not", [t[1]])

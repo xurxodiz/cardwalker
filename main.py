@@ -1,4 +1,5 @@
 from grammar.card.deff import card
+from lxml import etree
 import sys
 
 total, cleared = 0, 0
@@ -10,11 +11,11 @@ if single:
 else:
     path = "oracle/workingset.txt"
 
-def parse(str):
+def parse(s):
     global cleared, total
     total += 1
     try:
-        tree = card.parseString(str)
+        tree = card.parseString(s)
         print "Parsed: %s" % " ".join(tree[0])
         cleared += 1
     except:
@@ -23,9 +24,10 @@ def parse(str):
         except:
             print "Error"
 
-def deep_parse(str):
-    tree = card.parseString(str)
-    print tree
+def deep_parse(s):
+    tree = "".join(card.parseString(s))
+    root = etree.fromstring(tree)
+    print(etree.tostring(root, pretty_print=True))
 
 with open(path, "r") as f:
     storage = ""

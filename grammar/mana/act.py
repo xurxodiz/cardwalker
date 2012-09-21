@@ -14,27 +14,17 @@ def colorname(s,l,t):
 	return "<color color='%s' />" % color
 
 def noncolorname(s,l,t):
-	if "white" == t[1]:
-		color = "W"
-	elif "blue" == t[1]:
-		color = "U"
-	elif "black" == t[1]:
-		color = "B"
-	elif "red" == t[1]:
-		color = "R"
-	else: # green
-		color = "G"
-	return "<color color='%s' match='false' />" % color
+	return "<not>%s</not>" % (colorname(s,l,[t[0]]))
 
 def abschar(s,l,t):
 	if "colorless" == t[1]:
-		return "<color colorless='true' />"
+		return "<color color='colorless' />"
 	elif "colored" == t[1]:
-		return "<color colorless='false' />"
+		return "<color color='colored' />"
 	elif "multicolored" == t[1]:
-		return "<color muticolored='true' />"
+		return "<color color='multi' />"
 	else: # monocolored
-		return "<color multicolored='false' />"
+		return "<color colored='mono' />"
 
 def manasymbol(s,l,t):
 	return "<mana color='%s' />" % t[0]

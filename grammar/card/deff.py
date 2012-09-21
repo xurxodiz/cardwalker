@@ -4,6 +4,7 @@ from ..basic.constants.deff import *
 from ..types.deff import cardtypeline
 from ..mana.deff import cardcost
 from ..ptl.deff import cardptl
+from ..rules.keywords.deff import protection, keywords
 from ..exp.deff import cardexpansions
 
 from decl import *
@@ -25,5 +26,6 @@ card << (
 	Optional(cardcost)
 	+ cardtypeline
 	+ cardptl
+	+ protection + EOL
 	+ cardexpansions
 )

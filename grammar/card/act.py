@@ -1,2 +1,4 @@
+from ..basic.functions.deff import wrap
+
 def card(s,l,t):
-	return None
+	return wrap("card", t)
