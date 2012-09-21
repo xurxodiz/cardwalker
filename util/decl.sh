@@ -1,4 +1,5 @@
 #!/bin/sh
+#!/bin/sh
 
 INPUT=$1
 OUTPUT=$1.decl

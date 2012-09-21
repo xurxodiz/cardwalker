@@ -23,6 +23,4 @@ xcost = Forward().setParseAction(act.xcost)
 singlecost = Forward()
 manapayment = Forward().setParseAction(act.manapayment)
 
-nocost = Forward().setParseAction(act.nocost)
-docost = Forward().setParseAction(act.docost)
-cardcost = Forward()
+cardcost = Forward().setParseAction(act.cardcost)

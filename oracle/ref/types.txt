@@ -1,0 +1,8 @@
+Creature Creatures
+Token Tokens
+Land Lands
+Instant Instants
+Sorcery Sorceries
+Artifact Artifacts
+Enchantment Enchantments
+Planeswalker Planeswalkers

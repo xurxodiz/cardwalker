@@ -68,8 +68,5 @@ def xcost(s,l,t):
 def manapayment(s,l,t):
 	return "<pay resource='mana'>" + "".join(t.asList()) + "</pay>"
 
-def nocost(s,l,t):
-	return "<cost />"
-
-def docost(s,l,t):
+def cardcost(s,l,t):
 	return "<cost>" + "".join(t.asList()) + "</cost>"

@@ -25,7 +25,4 @@ xcost << XVAR
 singlecost << (numcost|xcost|snowsymbol|manasymbol|physymbol|hybsymbol|chybsymbol)
 manapayment << OneOrMore(LBRACE + singlecost + RBRACE)
 
-nocost << Empty()
-docost << OneOrMore(singlecost)
-
-cardcost << (docost + EOL| nocost)
+cardcost << OneOrMore(singlecost) + EOL

@@ -20,10 +20,9 @@ card = (cardname + EOL
 )
 """
 
-#cardtypeline = (PLAYER|OPPONENT)
 
 card << (
-	cardcost
+	Optional(cardcost)
 	+ cardtypeline
 	+ cardptl
 	+ cardexpansions

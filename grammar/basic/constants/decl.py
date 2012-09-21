@@ -25,7 +25,6 @@ SLASH = Forward()
 DASH = Forward()
 COLON = Forward()
 
-DIGIT = Forward()
 NUM = Forward().setParseAction(lambda x: int(x[0]))
 FULLNUM = Forward().setParseAction(act.fullnum)
 

@@ -1,3 +1,5 @@
+import string
+
 from pyparsing import *
 
 from decl import *
@@ -25,11 +27,8 @@ MINUS << Literal("-")
 
 XVAR << (Literal("X") | Literal("*"))
 
-DIGIT << oneOf("0 1 2 3 4 5 6 7 8 9")
-NUM << Combine(OneOrMore(DIGIT))
+NUM << Word(string.digits)
 FULLNUM << oneOf ("one two three four five six seven eight nine", caseless=True)
-
-UPPERCASE << oneOf ("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z")
 
 AND << CaselessLiteral("and")
 OR << CaselessLiteral("or")

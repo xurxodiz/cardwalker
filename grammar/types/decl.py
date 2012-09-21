@@ -1,53 +1,25 @@
 from pyparsing import *
 
+import act
+
+supertype = Forward().setParseAction(act.supertype)
+type_ = Forward().setParseAction(act.type_)
+
 basic_land_type = Forward()
-
 other_land_type = Forward()
-
-creature_type = Forward()
-
-artifact_type = Forward()
-
-planeswalker_type = Forward()
-
-enchantment_type = Forward()
-
-spell_type = Forward()
-
-supertype = Forward()
-
 land_type = Forward()
-
+creature_type = Forward()
 tribal_type = Forward()
+artifact_type = Forward()
+planeswalker_type = Forward()
+enchantment_type = Forward()
+spell_type = Forward()
+subtype = Forward().setParseAction(act.subtype)
 
-subtype = Forward()
+nontype = Forward().setParseAction(act.nontype)
 
-creature = Forward()
+supertypes = Forward().setParseAction(act.supertypes)
+types = Forward().setParseAction(act.types)
+subtypes = Forward().setParseAction(act.subtypes)
 
-token = Forward()
-
-tribal = Forward()
-
-instant = Forward()
-
-sorcery = Forward()
-
-land = Forward()
-
-artifact = Forward()
-
-enchantment = Forward()
-
-planeswalker = Forward()
-
-type_ = Forward()
-
-nontype = Forward()
-
-supertypes = Forward()
-
-types_ = Forward()
-
-subtypes = Forward()
-
-cardtypeline = Forward()
+cardtypeline = Forward().setParseAction(act.cardtypeline)

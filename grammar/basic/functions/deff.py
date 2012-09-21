@@ -2,7 +2,17 @@ from pyparsing import *
 
 def load_from_file(path, ignoreCase=True):
 	with open(path) as f:
-		return oneOf(" ".join(f.read().splitlines()), ignoreCase)
+		lst = []
+		for x in f.read().splitlines():
+			o = oneOf(x, ignoreCase).setResultsName(x.split()[0])
+			lst.append(o)
+		return Or(lst)
+
+def wrap(tag, lst):
+	return "<%s>%s</%s>" % (tag.lower(), "".join(lst), tag.lower())
+
+def emptytag(tag):
+	return "<%s />" % tag.lower()
 
 """
 def or_cl(lst):
