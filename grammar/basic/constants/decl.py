@@ -20,12 +20,12 @@ RBRACE = Forward()
 LBRACKET = Forward()
 RBRACKET = Forward()
 
-XVAR = Forward().setParseAction(lambda x: "X")
+XVAR = Forward().setParseAction(act.xvar)
 SLASH = Forward()
 DASH = Forward()
 COLON = Forward()
 
-NUM = Forward().setParseAction(lambda x: int(x[0]))
+NUM = Forward().setParseAction(act.num)
 FULLNUM = Forward().setParseAction(act.fullnum)
 
 UPPERCASE = Forward()

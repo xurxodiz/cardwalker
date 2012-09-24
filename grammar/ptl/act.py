@@ -1,32 +1,30 @@
 from pyparsing import *
 
+from ..basic.functions.xml.deff import wrap, concat
+
 def change(s,l,t):
 	if "+" == t[0]:
-		return "<increaseby>%s</increaseby>" % t[1]
+		return wrap("increaseby", t[1])
 	elif "-" == t[0]:
-		return "<decreaseby>%s</decreaseby>" % t[1]
+		return wrap("decreaseby", t[1])
 	else: # doesn't matter, it's zero
-		return "<increaseby>0</increaseby>"
+		return wrap("increaseby", "0")
 
 def amount(s,l,t):
-	if 2 == len(t):
-		return "<sum><base>%s</base>%s</sum>" % (t[0], t[1])
-
-	else:
-		if "X" == t[0]:
-			return "<refx />"
-		else:
-			return "<num>%s</num>" % int(t[0])
+	return concat(t)
 
 def ptmod(s,l,t):
-	return "<ptmod><power>%s</power>" \
-			+ "<toughness>%s</toughness></ptmod>" % (t[0], t[1])
+	p = wrap("power", t[0])
+	t = wrap("toughness", t[1])
+	wrap("ptmod", [p, t])
 
 def loyaltymod(s,l,t):
-	return "<loyaltymod>%s</loyaltymod>" % t[0]
+	return wrap("loyaltymod", t[0])
 
 def loyaltystart(s,l,t):
-	return "<loyalty>%s</loyalty>" % t[0]
+	return wrap("loyalty", t[0])
 
 def ptstart(s,l,t):
-	return "<pt><power>%s</power><toughness>%s</toughness></pt>" % (t[0], t[1])
+	p = wrap("power", t[0])
+	t = wrap("toughness", t[1])
+	return wrap("pt", [p, t])

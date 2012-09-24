@@ -1,6 +1,6 @@
-2W(W/U)
+2W(W/U)(b/p)(2/g)
 legendary basic Lands Creatures -- Bird Forest
 2/13-X
-Protection from red and from black
+mountaincycling {W}{W}
 MRU-R, 13E-C
 

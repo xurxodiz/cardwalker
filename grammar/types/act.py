@@ -1,16 +1,16 @@
-from ..basic.functions.deff import *
+from ..basic.functions.xml.deff import wrap, lowername, emptytag
 
 def type_(s,l,t):
-	return "<type type='%s' />" % lowername(t)
+	return emptytag(lowername(t))
 
 def supertype(s,l,t):
-	return "<supertype type='%s' />" % lowername(t)
+	return emptytag(lowername(t))
 
 def subtype(s,l,t):
-	return "<subtype type='%s' />" % lowername(t)
+	return emptytag(lowername(t))
 
 def nontype(s,l,t):
-	return wrap("not", [t[1]])
+	return wrap("not", t[1])
 
 def supertypes(s,l,t):
 	return wrap("supertypes", t)

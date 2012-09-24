@@ -5,27 +5,27 @@ from ..basic.functions.deff import *
 
 from decl import *
 
-supertype << load_from_file("oracle/ref/supertypes.txt")
+supertype << loadFromFile("oracle/ref/supertypes.txt")
 
-type_ << load_from_file("oracle/ref/types.txt")
+type_ << loadFromFile("oracle/ref/types.txt")
 
-basic_land_type << load_from_file("oracle/ref/basic_land_types.txt")
+basic_land_type << loadFromFile("oracle/ref/basic_land_types.txt")
 
-other_land_type << load_from_file("oracle/ref/other_land_types.txt")
+other_land_type << loadFromFile("oracle/ref/other_land_types.txt")
 
 land_type << (basic_land_type | other_land_type)
 
-creature_type << load_from_file("oracle/ref/creature_types.txt")
+creature_type << loadFromFile("oracle/ref/creature_types.txt")
 
 tribal_type << creature_type
 
-artifact_type << load_from_file("oracle/ref/artifact_types.txt")
+artifact_type << loadFromFile("oracle/ref/artifact_types.txt")
 
-planeswalker_type << load_from_file("oracle/ref/planeswalker_types.txt")
+planeswalker_type << loadFromFile("oracle/ref/planeswalker_types.txt")
 
-enchantment_type << load_from_file("oracle/ref/enchantment_types.txt")
+enchantment_type << loadFromFile("oracle/ref/enchantment_types.txt")
 
-spell_type << load_from_file("oracle/ref/spell_types.txt")
+spell_type << loadFromFile("oracle/ref/spell_types.txt")
 
 subtype << (spell_type | enchantment_type | planeswalker_type | artifact_type | creature_type | land_type)
 

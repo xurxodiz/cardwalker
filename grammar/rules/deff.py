@@ -1,5 +1,4 @@
-from pyparsing import *
-from definitions import *
+"""from pyparsing import *
 from mana import *
 from basic import *
 from types import *
@@ -200,3 +199,4 @@ reminder << Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
 rule << Group(triggered|activated|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
 
 cardrules << delimitedList(rule, Optional(EOL))
+"""

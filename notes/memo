@@ -2,3 +2,8 @@
 Tue Sep 11 05:33:08 CEST 2012
 
 Funny thing: "Tormented soul can't block and is unblockable" is parsed in two ways. Before, it assumed "Tormented soul can't block and" was the cardname. Now that we added "can't block" as property, it correctly recognizes "Tormented Soul" as the cardname. Even though we told him to stop at a property, "can't block" wasn't before, so it was oblivious to it. And it correctly parsed -- adding "can't block" didn't increase the card count. So it's not a firesure way of knowing they are parsing correctly if they are parsed -- beware!
+
+
+Mon Sep 24 18:22 CEST 2012
+
+Searchs can be simple XPath queries if we follow a nested tags approach. Picture this: //pay for all cards with an activated ability, //pay/discard/you for those where you activate it by discarding, //pay/*/creatures/*/destroy for those where the effect is destroying creatures.

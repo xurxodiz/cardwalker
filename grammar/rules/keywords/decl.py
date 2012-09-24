@@ -13,11 +13,11 @@ HAUNT = Forward()
 ENCHANT = Forward()
 
 CYCLING = Forward()
-cycling = Forward()
+cycling = Forward().setParseAction(act.cycling)
 
 protection = Forward().setParseAction(act.protection)
 enchant = Forward()
-landwalk = Forward().setParseAction(act.landwalk)
+landwalk = Forward()#.setParseAction(act.landwalk)
 
 ability_keyword = Forward()
 basic_keyword = Forward().setParseAction(act.basic_keyword)

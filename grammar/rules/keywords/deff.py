@@ -1,10 +1,9 @@
 from pyparsing import *
 
-from ...basic.constants.deff import *
-from ...basic.functions.deff import *
-from ...ptl.deff import *
-from ...mana.deff import *
-from ...types.deff import *
+from ...basic.constants.deff import FROM, NUM
+from ...basic.functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
+from ...mana.deff import color, manapayment
+from ...types.deff import basic_land_type, subtype
 
 from decl import *
 
@@ -21,13 +20,14 @@ ENCHANT << oneOfNamed ("enchant enchanted")
 """
 landwalk << objects + WALK # legendary/nonbasic/forest/etc land
 """
-basic_keyword << load_from_file("oracle/ref/basic_keywords.txt")
+basic_keyword << loadFromFile("oracle/ref/basic_keywords.txt")
 
-number_keyword << load_from_file("oracle/ref/number_keywords.txt") + NUMBER
-CYCLING << CaselessLiteral("Cycling")
-cycling << Optional(basic_land_type|subtype) + CYCLING
+number_keyword << loadFromFile("oracle/ref/number_keywords.txt") + NUM
 
-costed_keyword << (load_from_file("oracle/ref/costed_keywords.txt")
+CYCLING << Suppress(CaselessLiteral("Cycling"))
+cycling << Optional(subtype) + CYCLING
+
+costed_keyword << (loadFromFile("oracle/ref/costed_keywords.txt")
 #				| EQUIP
 #				| FORTIFY
 				| cycling
@@ -35,7 +35,7 @@ costed_keyword << (load_from_file("oracle/ref/costed_keywords.txt")
 
 protection << Suppress(PROTECTION) + delimitedListAnd(Suppress(FROM) + color)
 """
-ability_keyword << load_from_file("oracle/ref/ability_keywords.txt")
+ability_keyword << loadFromFile("oracle/ref/ability_keywords.txt")
 
 enchant << ENCHANT + objects
 """
@@ -45,6 +45,7 @@ keywords << delimitedListAnd( \
 		| number_keyword
 		| costed_keyword
 )
+
 """
 		#|number_keyword + (DASH + cardrules))
 		#| costed_keyword + (DASH + oneshot)) 
