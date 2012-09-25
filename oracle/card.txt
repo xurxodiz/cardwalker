@@ -1,6 +1,7 @@
 2W(W/U)(b/p)(2/g)
 legendary basic Lands Creatures -- Bird Forest
 2/13-X
-mountaincycling {W}{W}
+flying
+trample
 MRU-R, 13E-C
 

@@ -3,7 +3,7 @@ from pyparsing import *
 from ..constants.deff import COMMA, AND
 
 def delimitedListAnd(elem):
-	lim = Optional(COMMA+AND|COMMA|AND)
+	lim = (COMMA+AND|COMMA|AND)
 	return delimitedList(elem, lim)
 
 def oneOfNamed(ssv):

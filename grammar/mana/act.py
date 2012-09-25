@@ -40,15 +40,13 @@ def untapsymbol(s,l,t):
 	return emptytag("untap")
 
 def physymbol(s,l,t):
-	paylife = wrap("life", wrap("num", ["2"]))
-	return wrap("option", [paylife, t[0]])
+	return wrap("phy", t[0])
 
 def hybsymbol(s,l,t):
-	paymana = wrap("mana", wrap("colorless", t[0]))
-	return wrap("option", [paymana, t[1]])
+	return wrap("hybmono", t[1])
 
 def chybsymbol(s,l,t):
-	return wrap("option", t)
+	return wrap("hybmulti", t)
 
 def numcost(s,l,t):
 	return wrap("colorless", t)
@@ -57,7 +55,7 @@ def xcost(s,l,t):
 	return wrap("colorless", t)
 
 def manapayment(s,l,t):
-	return wrap("pay", wrap("mana", t))
+	return wrap("cost", t)
 
 def cardcost(s,l,t):
-	return wrap("cost", wrap("mana", t))
+	return wrap("cost", t)

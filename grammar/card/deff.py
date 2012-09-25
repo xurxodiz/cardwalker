@@ -4,7 +4,7 @@ from ..basic.constants.deff import EOL
 from ..types.deff import cardtypeline
 from ..mana.deff import cardcost
 from ..ptl.deff import cardptl
-from ..rules.keywords.deff import keywords
+from ..rules.deff import cardrules
 from ..exp.deff import cardexpansions
 
 from decl import *
@@ -12,19 +12,13 @@ from decl import *
 ParserElement.setDefaultWhitespaceChars(" \t")
 
 """
-card = (cardname + EOL
-	+ Optional(cardcost + EOL)
-	+ cardtypeline + EOL
-	+ Optional(cardpt + EOL)
-	+ Optional(cardrules + EOL)
-	+ cardexpansions + EOL
-)
+cardname
 """
 
 card << (
 	Optional(cardcost)
 	+ cardtypeline
 	+ cardptl
-	+ keywords
+	+ cardrules
 	+ cardexpansions
 )

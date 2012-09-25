@@ -1,4 +1,12 @@
-"""from pyparsing import *
+from pyparsing import *
+
+from ..basic.constants.deff import *
+from keywords.deff import keywords
+
+from decl import *
+
+"""
+
 from mana import *
 from basic import *
 from types import *
@@ -165,7 +173,8 @@ effect << Group( \
 		| SACRIFICE + objects
 		| REGENERATE + objects
 		| PUT + quantity + ptmod + COUNTER + ON + objects 
-		| PUT + Optional(quantity + cardpt) + objects + Optional(WITH + delimitedListAnd(keywords)) + (INTO|ONTO) + zone
+		| PUT + Optional(quantity + cardpt) + objects \
+			+ Optional(WITH + delimitedListAnd(keywords)) + (INTO|ONTO) + zone
 		| BECOME + number # for life totals
 		| BE + REDUCE + BY + number
 		| RETURN + objects + Optional(FROM + delimitedListAnd(zone)) + TO + zone + Optional(undercontrol)
@@ -194,9 +203,11 @@ trigger_clause << (when_trigger
 ) + Optional(COMMA + intervif)
 
 triggered << Group(trigger_clause) + COMMA + Group(oneshot|continuous)
+"""
+
+rule << (triggered|activated|keywords|continuous|oneshot) + Optional(POINT)
 
 reminder << Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
-rule << Group(triggered|activated|keywords|continuous|oneshot) + Optional(POINT) + Optional(reminder)
+rulelist << OneOrMore(~EOL + rule) + Optional(reminder)
 
-cardrules << delimitedList(rule, Optional(EOL))
-"""
+cardrules << OneOrMore(rulelist)
