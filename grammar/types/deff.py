@@ -5,6 +5,8 @@ from ..basic.functions.deff import *
 
 from decl import *
 
+cardname << loadLinesFromFile("oracle/ref/names.txt")
+
 supertype << loadFromFile("oracle/ref/supertypes.txt")
 
 type_ << loadFromFile("oracle/ref/types.txt")

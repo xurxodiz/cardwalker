@@ -2,6 +2,8 @@ from pyparsing import *
 
 import act
 
+cardname = Forward().setParseAction(act.cardname)
+
 supertype = Forward().setParseAction(act.supertype)
 type_ = Forward().setParseAction(act.type_)
 

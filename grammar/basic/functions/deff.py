@@ -14,6 +14,9 @@ def loadFromFile(path):
 	with open(path) as f:
 		return Or([oneOfNamed(line) for line in f.read().splitlines()])
 
+def loadLinesFromFile(path):
+	with open(path) as f:
+		return Or([CaselessLiteral(line) for line in f.read().splitlines()])
 """
 def delimitedListOr(elem):
 	helper = Suppress(OR) + elem | elem

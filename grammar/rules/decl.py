@@ -21,7 +21,6 @@ obj = Forward()
 properties = Forward()
 condition = Forward()
 
-cardname = Forward()
 objects = Forward()
 
 peopleres = Forward()

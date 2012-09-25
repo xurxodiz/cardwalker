@@ -13,7 +13,7 @@ card:
 
 extract:
 	@if [[ -z "$(EXP)" ]]; then \
-		cd oracle; ./extract.sh; \
+		cd util; ./extract.sh; \
 	else \
-		cd oracle; ./extract.sh "${EXP}"; \
+		cd util; ./extract.sh "${EXP}"; \
 	fi

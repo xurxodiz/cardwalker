@@ -11,8 +11,8 @@ echo "Extracting cards from sets:" $EXP
 # we prepare the regex by substituting spaces for |
 # (alternative operator)
 OR=(${EXP/ /\|})
-INPUT=allsets.txt
-OUTPUT=workingset.txt
+INPUT=../oracle/allsets.txt
+OUTPUT=../oracle/workingset.txt
 
 # now, we open the master file
 # feed to a sed that buffers a card and check the expansion

@@ -7,11 +7,6 @@ from decl import *
 
 """
 
-from mana import *
-from basic import *
-from types import *
-from pt import *
-
 quantity << ( \
 		NUM
 		| XVAR
@@ -82,8 +77,6 @@ properties << Forward()
 condition << Forward()
 effect << Forward()
 continuous << Forward()
-
-cardname << Group(OneOrMore(~(condition|effect|properties|FROM) + Word(alphas + "',")))
 
 objects << Group(\
 	delimitedListAndOr(det + obj | obj)
@@ -183,7 +176,8 @@ effect << Group( \
 		| prevention
 		| ADD + manapayment + TO + peopleposs + MANA + POOL
 		| COUNTER + objects
-) + Optional( \
+)
++ Optional( \
 	for_
 	| COMMA + (where|equal)
 )
