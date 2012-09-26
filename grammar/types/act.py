@@ -1,4 +1,4 @@
-from ..basic.functions.xml.deff import wrap, lowername, emptytag
+from ..functions.xml.deff import wrap, lowername, emptytag
 
 def cardname(s,l,t):
 	return wrap("name", t[0])

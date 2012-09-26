@@ -1,7 +1,8 @@
 from pyparsing import *
 
-from ...basic.constants.deff import FROM, NUM
-from ...basic.functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
+from ...constants.math.deff import NUM
+from ...constants.prepositions.deff import FROM
+from ...functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
 from ...mana.deff import color, manapayment
 from ...types.deff import land_type, subtype
 
@@ -13,10 +14,7 @@ WALK << CaselessLiteral("Walk")
 INDESTRUCTIBLE << CaselessLiteral("indestructible")
 UNBLOCKABLE << CaselessLiteral("unblockable")
 
-EQUIP << oneOfNamed ("equip equipped")
-FORTIFY << oneOfNamed ("fortify fortified")
-HAUNT << oneOfNamed ("haunt haunted")
-ENCHANT << oneOfNamed ("enchant enchanted")
+# EQUIP, FORTIFY, ENCHANT and FORTIFY are defined in constants
 
 landwalk << land_type + WALK
 # landwalk2 << objects + WALK # legendary/nonbasic/forest/etc land

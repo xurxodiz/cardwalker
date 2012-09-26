@@ -1,4 +1,4 @@
-from ..basic.functions.xml.deff import *
+from ..functions.xml.deff import *
 
 def rule(s,l,t):
 	return wrap("rule", t)

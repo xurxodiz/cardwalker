@@ -1,4 +1,4 @@
-from ..functions.xml import *
+from ...functions.xml import *
 
 def xvar(s,l,t):
 	return emptytag("refx")

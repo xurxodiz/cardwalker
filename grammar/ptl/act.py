@@ -1,6 +1,6 @@
 from pyparsing import *
 
-from ..basic.functions.xml.deff import wrap, concat
+from ..functions.xml.deff import wrap, concat
 
 def change(s,l,t):
 	if "+" == t[0]:

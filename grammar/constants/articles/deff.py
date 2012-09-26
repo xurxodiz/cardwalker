@@ -1,0 +1,16 @@
+from pyparsing import *
+
+TARGET << CaselessLiteral("target")
+THIS << CaselessKeyword("this")
+THAT << CaselessKeyword("that")
+AN << oneOfNamed ("a an", caseless=True)
+THE << CaselessLiteral("the")
+OTHER << CaselessLiteral("other")
+ANOTHER << CaselessLiteral("another")
+HIS << CaselessLiteral("his or her")
+ALL << CaselessLiteral("all")
+EACH << CaselessLiteral("each")
+ITS << oneOfNamed("its their", caseless=True)
+YOUR << CaselessLiteral("your")
+THEIR << CaselessLiteral("their")
+POSS << (CaselessLiteral("'s") | APOS)

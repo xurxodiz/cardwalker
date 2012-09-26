@@ -1,4 +1,4 @@
-from ...basic.functions.xml.deff import wrap, emptytag, lowername
+from ...functions.xml.deff import wrap, emptytag, lowername
 
 def protection(s,l,t):
 	return wrap("protection", t)

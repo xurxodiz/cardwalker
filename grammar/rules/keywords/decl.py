@@ -7,11 +7,6 @@ WALK = Forward()
 INDESTRUCTIBLE = Forward()
 UNBLOCKABLE = Forward()
 
-EQUIP = Forward()
-FORTIFY = Forward()
-HAUNT = Forward()
-ENCHANT = Forward()
-
 CYCLING = Forward()
 cycling = Forward().setParseAction(act.cycling)
 

@@ -2,31 +2,6 @@ from pyparsing import *
 
 import act
 
-quantity = Forward()
-det = Forward()
-
-people = Forward()
-peopleposs = Forward()
-
-zone = Forward()
-
-adj = Forward()
-
-undercontrol = Forward()
-where = Forward()
-
-concept = Forward()
-
-obj = Forward()
-properties = Forward()
-condition = Forward()
-
-objects = Forward()
-
-peopleres = Forward()
-mayer = Forward()
-subject = Forward()
-
 triggered = Forward()
 properties = Forward()
 

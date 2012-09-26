@@ -1,98 +1,11 @@
 from pyparsing import *
 
-from ..basic.constants.deff import *
+from ..constants.punctuation.deff import LPAREN, RPAREN, POINT, EOL
 from keywords.deff import keywords
 
 from decl import *
 
 """
-
-quantity << ( \
-		NUM
-		| XVAR
-		| XVAR + NUM
-		| FULLNUM
-		| UPTO + FULLNUM
-		| AN
-		| ANOTHER
-		| ALL
-)
-
-det << Group( \
-	TARGET
-	| quantity + TARGET
-	| quantity
-	| peopleposs
-	| (THIS|THAT)
-	| OTHER
-	| EACH
-	| ITS
-	| THE
-)
-
-people << Group(Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER))
-
-peopleposs << Group(YOUR
-		| THEIR
-		| HIS
-		| people + POSS
-)
-
-zone << Group ( \
-		peopleposs + (GRAVEYARD|HAND|LIBRARY)
-		| det + delimitedListAndOr(GRAVEYARD|HAND|LIBRARY)
-		| THE + BATTLEFIELD 
-		| THE + TOP + OF + peopleposs + LIBRARY
-)
-
-adj << Group(delimitedListAndOr( \
-	color
-	| nontype
-	| supertype
-	| (TOP|BOTTOM) + number
-	# coming next: participles
-	| TAP
-	| UNTAP
-	| ENCHANT
-	| EQUIP
-	| EXILE
-	| SACRIFICE
-	| HAUNT
-))
-
-where << Group(people + CONTROL
-		| IN + zone
-		| OF + zone
-		| FROM + zone
-)
-
-concept << (SPELL | PERMANENT | CARD | ABILITY)
-
-obj << Group(Optional(adj)
-	+ delimitedListAndOr(subtype | type_ | concept)
-	+ Optional(where)
-)
-
-properties << Forward()
-condition << Forward()
-effect << Forward()
-continuous << Forward()
-
-objects << Group(\
-	delimitedListAndOr(det + obj | obj)
-	| IT
-	| peopleposs + LIFE + TOTAL
-	| det + TOP + fullnumber + CARD + OF + zone
-	| cardname
-)
-
-peopleres << Group( \
-	peopleposs + LIFE + TOTAL
-	| peopleposs + HAND + SIZE
-)
-
-mayer << people + Optional(MAY + Optional(people|objects))
-subject << (peopleres|mayer|people|objects)
 
 triggered << Forward()
 

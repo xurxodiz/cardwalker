@@ -1,6 +1,6 @@
 from pyparsing import *
 
-from ..basic.functions.xml.deff import emptytag, wrap
+from ..functions.xml.deff import emptytag, wrap
 
 def colorname(s,l,t):
 	if "white" == t[0]:
@@ -17,7 +17,7 @@ def colorname(s,l,t):
 def noncolorname(s,l,t):
 	return wrap("not", [colorname(s,l,t)])
 
-def abschar(s,l,t):
+def colorfeature(s,l,t):
 	if "colorless" == t[1]:
 		return "<color color='colorless' />"
 	elif "colored" == t[1]:

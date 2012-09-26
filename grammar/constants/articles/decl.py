@@ -1,0 +1,16 @@
+from pyparsing import *
+
+TARGET = Forward()
+THIS = Forward()
+THAT = Forward()
+AN = Forward()
+THE = Forward()
+OTHER = Forward()
+ANOTHER = Forward()
+HIS = Forward()
+ALL = Forward()
+EACH = Forward()
+ITS = Forward()
+YOUR = Forward()
+THEIR = Forward()
+POSS = Forward()

@@ -1,12 +1,11 @@
 import string
 
 from pyparsing import *
-
-from ..basic.constants.deff import *
-
+from ..constants.punctuation.deff import DASH, COMMA
+from ..constants.resources.deff import FREQUENCY
 from decl import *
 
-frequency << oneOf("M R U C L S")
+frequency << FREQUENCY
 expcode << Word(string.digits + string.uppercase)
 
 expansion << expcode + Suppress(DASH) + frequency

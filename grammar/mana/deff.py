@@ -1,21 +1,23 @@
 from pyparsing import *
 
-from ..basic.constants.deff import *
+from ..constants.resources.deff import *
+from ..constants.punctuation.deff import LBRACE, RBRACE, LPAREN, RPAREN, SLASH, EOL
+from ..constants.math.deff import NUM, XVAR
+from ..constants.modifiers.deff import NON
 
 from decl import *
 
-colorname << oneOf("white blue black red green", caseless=True)
-noncolorname << NON + colorname
-abschar << oneOf ("colorless colored multicolored monocolored", caseless=True)
-color << (colorname | noncolorname | abschar)
+colorname << COLORNAME
+noncolorname << NON + COLORNAME
+colorfeature << COLORFEATURE
+color << (colorname | noncolorname | colorfeature)
 
-manasymbol << oneOf("W U B R G", caseless=True)
-tapsymbol << LBRACE + CaselessLiteral("T") + RBRACE
-untapsymbol << LBRACE + CaselessLiteral("Q") + RBRACE
-snowsymbol << CaselessLiteral("S")
+manasymbol << MANASYMBOL
+tapsymbol << LBRACE + TAPSYMBOL + RBRACE
+untapsymbol << LBRACE + UNTAPSYMBOL + RBRACE
+snowsymbol << SNOWSYMBOL
 
-phyletter << (Suppress("p") | Suppress("P"))
-physymbol << LPAREN + manasymbol + SLASH + phyletter + RPAREN
+physymbol << LPAREN + manasymbol + SLASH + PHYSYMBOL + RPAREN
 hybsymbol << LPAREN + NUM + SLASH + manasymbol + RPAREN
 chybsymbol << LPAREN + manasymbol + SLASH + manasymbol + RPAREN
 

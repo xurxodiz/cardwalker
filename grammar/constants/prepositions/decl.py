@@ -1,0 +1,16 @@
+from pyparsing import *
+
+TO = Forward()
+UPTO = Forward()
+OF = Forward()
+IN = Forward()
+ON = Forward()
+ONTO = Forward()
+INTO = Forward()
+FROM = Forward()
+BY = Forward()
+AT = Forward()
+FOR = Forward()
+UNTIL = Forward()
+UNDER = Forward()
+WITH = Forward()

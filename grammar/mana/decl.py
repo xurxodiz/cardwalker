@@ -4,7 +4,7 @@ import act
 
 colorname = Forward().setParseAction(act.colorname)
 noncolorname = Forward().setParseAction(act.noncolorname)
-abschar = Forward().setParseAction(act.abschar)
+colorfeature = Forward().setParseAction(act.colorfeature)
 color = Forward()
 
 manasymbol = Forward().setParseAction(act.manasymbol)
