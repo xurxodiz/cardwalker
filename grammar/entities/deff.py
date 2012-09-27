@@ -1,52 +1,75 @@
 from pyparsing import *
 
+from ..constants.prepositions.deff import UPTO, OF, IN, FROM
+from ..constants.articles.deff import *
 from ..constants.math.deff import PLUS, MINUS, NUM, XVAR, FULLNUM
 from ..constants.people.deff import *
+from ..constants.verbs.deff import MAY, HAVE, CONTROL, TAP, UNTAP, ENCHANT, EQUIP, EXILE, SACRIFICE, HAUNT
+from ..constants.zones.deff import GRAVEYARD, BATTLEFIELD, HAND, LIBRARY, TOP, BOTTOM
+from ..constants.concepts.deff import concept
+from ..constants.resources.deff import LIFE, TOTAL, SIZE
+from ..mana.deff import color
+from ..types.deff import cardname, nontype, supertype, subtype, type_, subtypes, types
+
+
 from decl import *
 
 change << Optional(PLUS|MINUS) + amount
 amount << ((NUM + change) | NUM | (XVAR + change) | XVAR | FULLNUM)
 
-quantity << ( \
-		amount
-		| UPTO + amount
-		| AN
-		| ANOTHER
-		| ALL
+uptoamount << UPTO + amount
+an << AN
+another << ANOTHER
+alll << ALL
+
+quantity << (amount|uptoamount|an|another|alll)
+
+target << TARGET
+quantitytarget << quantity + TARGET
+this << THIS
+that << THAT
+other << OTHER
+each << EACH
+its << ITS
+the << THE
+
+det << (target|quantitytarget|quantity|peopleposs|this|that|other|each|its|the)
+
+people << delimitedListAnd(
+	Optional(det)
+	+ (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER)
 )
 
-det << ( \
-	TARGET
-	| quantity + TARGET
-	| quantity
-	| peopleposs
-	| (THIS|THAT)
-	| OTHER
-	| EACH
-	| ITS
-	| THE
-)
+your << YOUR
+their << THEIR
+his << HIS
+peoploss << people + POSS
 
-people << Optional(det) + (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER)
+peopleposs << (your|their|his|peoploss)
 
-peopleposs << (YOUR
-		| THEIR
-		| HIS
-		| people + POSS
-)
+detzone << det + (GRAVEYARD|HAND|LIBRARY)
+thebattlefield << THE + BATTLEFIELD
+thetopoflibrary << THE + TOP + OF + peopleposs + LIBRARY
 
-zone << ( \
-		peopleposs + (GRAVEYARD|HAND|LIBRARY)
-		| det + delimitedListAndOr(GRAVEYARD|HAND|LIBRARY)
-		| THE + BATTLEFIELD 
-		| THE + TOP + OF + peopleposs + LIBRARY
-)
+zone << (detzone|thebattlefield|thetopoflibrary)
 
-adj << (delimitedListAndOr( \
+peoplecontrol << people + CONTROL
+inzone << IN + zone
+ofzone << OF + zone
+fromzone << FROM + zone
+
+where << (peoplecontrol|inzone|ofzone|fromzone)
+
+lifetotal << peopleposs + LIFE + TOTAL
+handsize << peopleposs + HAND + SIZE
+
+resource << (lifetotal|handsize)
+
+adjective << ( \
 	color
 	| nontype
 	| supertype
-	| (TOP|BOTTOM) + number
+	| (TOP|BOTTOM) + (NUM|FULLNUM)
 	# coming next: participles
 	| TAP
 	| UNTAP
@@ -55,33 +78,41 @@ adj << (delimitedListAndOr( \
 	| EXILE
 	| SACRIFICE
 	| HAUNT
-))
-
-where << (people + CONTROL
-		| IN + zone
-		| OF + zone
-		| FROM + zone
 )
 
-concept << (SPELL | PERMANENT | CARD | ABILITY)
+andadjectives << delimitedListAnd(adjective)
+oradjectives << delimitedListOr(adjective)
+consadjectives << OneOrMore(adjective)
 
-obj << (Optional(adj)
-	+ delimitedListAndOr(subtype | type_ | concept)
-	+ Optional(where)
-)
+adjectives << (andadjectives|oradjectives|consadjectives)
 
-objects << (\
-	delimitedListAndOr(det + obj | obj)
-	| IT
-	| peopleposs + LIFE + TOTAL
-	| det + TOP + fullnumber + CARD + OF + zone
+andsubtypes << delimitedListAnd(subtype)
+orsubtypes << delimitedListOr(subtype)
+
+thesubtypes << (andsubtypes|orsubtypes|subtypes)
+
+andtypes << delimitedListAnd(type_)
+ortypes << delimitedListOr(type_)
+
+thetypes << (andtypes|ortypes|types)
+
+andconcepts << delimitedListAnd(concept)
+orconcepts << delimitedListOr(concept)
+consconcepts << OneOrMore(concept)
+
+theconcepts << (andconcepts|orconcepts|consconcepts)
+
+baseobject_ << (thesubtypes|thetypes|theconcepts)
+
+object_ << Optional(adjectives) + baseobject_ + Optional(where)
+
+objects << (
+	delimitedListAnd(
+		Optional(det)
+		+ delimitedListOr(object_)
+	)
 	| cardname
 )
 
-resources << ( \
-	peopleposs + LIFE + TOTAL
-	| peopleposs + HAND + SIZE
-)
-
-mayer << people + Optional(MAY + Optional(people|objects))
-subject << (resources|mayer|people|objects)
+mayer << people + Optional(MAY + Optional(HAVE + (people|objects)))
+subject << (resource|mayer|people|objects)

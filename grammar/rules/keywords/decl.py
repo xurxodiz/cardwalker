@@ -2,12 +2,6 @@ from pyparsing import *
 
 import act
 
-PROTECTION = Forward()
-WALK = Forward()
-INDESTRUCTIBLE = Forward()
-UNBLOCKABLE = Forward()
-
-CYCLING = Forward()
 cycling = Forward().setParseAction(act.cycling)
 
 protection = Forward().setParseAction(act.protection)

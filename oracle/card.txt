@@ -2,7 +2,7 @@ A Display of My Dark Power
 3G(W/U)(2/B)(R/P)
 legendary basic Lands Creatures -- Bird Forest
 2/13-X
-flying
+flying, protection from red
 trample
 MRU-R, 13E-C
 

@@ -1,11 +1,15 @@
 from pyparsing import *
 
-def expansions(s,l,t):
-	return "<expansion code='%s' frequency='%s' />" % (t[0], t[1])
+from ..functions.xml.deff import wrap
+
+def frequency(s,l,t):
+	return wrap("frequency", t)
+
+def expcode(s,l,t):
+	return wrap("code", t)
+
+def expansion(s,l,t):
+	return wrap("exp", t)
 	
 def cardexpansions(s,l,t):
-	s = "<expansions>"
-	for tt in t.asList():
-		s += tt
-	s += "</expansions>"
-	return s
+	return wrap("expansions", t)

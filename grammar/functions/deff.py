@@ -4,7 +4,7 @@ from ..constants.punctuation.deff import COMMA
 from ..constants.connectors.deff import AND, OR
 
 def delimitedListAnd(elem):
-	return delimitedList(elem, OneOrMore(COMMA|AND))
+	return delimitedList(elem, ZeroOrMore(COMMA|AND))
 
 def delimitedListOr(elem):
 	return delimitedList(elem, OneOrMore(COMMA|OR))

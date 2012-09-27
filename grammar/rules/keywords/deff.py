@@ -2,32 +2,26 @@ from pyparsing import *
 
 from ...constants.math.deff import NUM
 from ...constants.prepositions.deff import FROM
+from ...constants.keywords.deff import *
 from ...functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
 from ...mana.deff import color, manapayment
 from ...types.deff import land_type, subtype
 
 from decl import *
 
-PROTECTION << CaselessLiteral("Protection")
-WALK << CaselessLiteral("Walk")
-
-INDESTRUCTIBLE << CaselessLiteral("indestructible")
-UNBLOCKABLE << CaselessLiteral("unblockable")
-
-# EQUIP, FORTIFY, ENCHANT and FORTIFY are defined in constants
+# EQUIP, FORTIFY, ENCHANT and FORTIFY are defined in constants.verbs
 
 landwalk << land_type + WALK
 # landwalk2 << objects + WALK # legendary/nonbasic/forest/etc land
 
-basic_keyword << loadFromFile("oracle/ref/basic_keywords.txt")
+basic_keyword << BASICKEYWORD
 
-number_keyword << loadFromFile("oracle/ref/number_keywords.txt") + NUM
+number_keyword << NUMBERKEYWORD + NUM
 
-costed_keyword << loadFromFile("oracle/ref/costed_keywords.txt") + manapayment
+costed_keyword << COSTEDKEYWORD + manapayment
 
 # cycling goes apart because we need to extract the type
-CYCLING << Suppress(CaselessLiteral("cycling"))
-cycling << Optional(subtype) + CYCLING + manapayment
+cycling << Optional(subtype) + Suppress(CYCLING) + manapayment
 
 protection << Suppress(PROTECTION) + delimitedListAnd(Suppress(FROM) + color)
 

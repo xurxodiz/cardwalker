@@ -117,4 +117,4 @@ rule << (triggered|activated|keywords|continuous|oneshot) + Optional(POINT)
 reminder << Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
 rulelist << OneOrMore(~EOL + rule) + Optional(reminder)
 
-cardrules << OneOrMore(rulelist)
+cardrules << ZeroOrMore(rulelist)

@@ -2,7 +2,7 @@ from pyparsing import *
 
 import act
 
-frequency = Forward()
-expcode = Forward()
-expansion = Forward().setParseAction(act.expansions)
+frequency = Forward().setParseAction(act.frequency)
+expcode = Forward().setParseAction(act.expcode)
+expansion = Forward().setParseAction(act.expansion)
 cardexpansions = Forward().setParseAction(act.cardexpansions)
