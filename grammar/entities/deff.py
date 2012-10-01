@@ -11,18 +11,17 @@ from ..constants.resources.deff import LIFE, TOTAL, SIZE
 from ..mana.deff import color
 from ..types.deff import cardname, nontype, supertype, subtype, type_
 
-
 from decl import *
 
 change << Optional(PLUS|MINUS) + amount
-amount << ((NUM + change) | NUM | (XVAR + change) | XVAR | FULLNUM)
+amount << ((NUM + change) ^ NUM ^ (XVAR + change) ^ XVAR ^ FULLNUM)
 
 uptoamount << UPTO + amount
 an << AN
 another << ANOTHER
 alll << ALL
 
-quantity << (amount|uptoamount|an|another|alll)
+quantity << (an ^ another ^ alll ^ amount ^ uptoamount)
 
 target << TARGET
 quantitytarget << quantity + TARGET
@@ -33,7 +32,7 @@ each << EACH
 its << ITS
 the << THE
 
-globaldet << (target|quantitytarget|quantity|this|that|other|each|its|the)
+globaldet << (quantity ^ target ^ quantitytarget ^ this ^ that ^ other ^ each ^ its ^ the)
 
 det << (globaldet|peopleposs)
 
@@ -106,7 +105,7 @@ consnoun << OneOrMore(noun)
 
 baseobject_ << OneOrMore(consnoun ^ andnoun ^ ornoun)
 
-object_ << Optional(det) + Optional(adjectives) + baseobject_ + Optional(where)
+object_ << Optional(det) + Optional(adjectives) + baseobject_
 orobjects << delimitedListOr(object_)
 andobjects << delimitedListAnd(object_)
 consobjects << OneOrMore(object_ )

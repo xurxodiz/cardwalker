@@ -32,4 +32,4 @@ cardtypeline << (
 	Optional(cardsupertypes)
 	+ cardtypes
 	+ Optional(Suppress(DASH) + cardsubtypes)
-) + EOL
+)
