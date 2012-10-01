@@ -3,14 +3,8 @@ from pyparsing import *
 import act
 
 triggered = Forward()
-properties = Forward()
 
-step = Forward()
-step_time = Forward()
-
-until = Forward()
 intervif = Forward()
-unless = Forward()
 
 condition = Forward()
 lifepay = Forward()
@@ -21,7 +15,6 @@ equal = Forward()
 for_ = Forward()
 
 effect = Forward()
-continuous = Forward()
 oneshot = Forward()
 
 cost = Forward()

@@ -15,8 +15,10 @@ def parse(s):
     global cleared, total
     total += 1
     try:
-        tree = card.parseString(s)
-        print "Parsed: %s" % " ".join(tree[0])
+        tree = "".join(card.parseString(s))
+        root = etree.fromstring(tree)
+        r = root.xpath('//name')
+        print "Parsed: %s" % r[0].text
         cleared += 1
     except:
         try:

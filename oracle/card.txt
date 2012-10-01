@@ -1,7 +1,6 @@
 A Display of My Dark Power
-W
-Enchantment
-2/1
-enchant black enchantments
+GG
+Instant
+Target creature is indestructible until end of turn.
 MRU-R, 13E-C
 

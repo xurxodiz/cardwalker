@@ -2,37 +2,16 @@ from pyparsing import *
 
 from ..constants.punctuation.deff import LPAREN, RPAREN, POINT, EOL
 from keywords.deff import keywords
+from continuous.deff import continuous
 
 from decl import *
 
 """
-
-triggered << Forward()
-
-properties << (\
-			HAVE + delimitedListAndOr(keywords)
-			| GET + ptmod
-			| BE + INDESTRUCTIBLE
-			| BE + UNBLOCKABLE
-			| GAIN + delimitedListAnd(keywords | ptmod | (QUOTE + triggered + QUOTE))
-			| GAIN + CONTROL + OF + objects
-			| CANT + BLOCK
-			| MUST + ATTACK
-)
-
-step << (TURN|UPKEEP|DRAWSTEP|PRECOMBAT|COMBAT|POSCOMBAT|TURN)
-step_time << Optional(AT + THE) + (BEGINNING|END) + OF + (peopleposs + step|step)
-until << UNTIL + step_time
-
-intervif << Literal("FILLER")
 unless << Literal("FILLER")
-undercontrol << Group( \
-			UNDER + peopleposs + CONTROL
-)
+intervif << Literal("FILLER")
+undercontrol << (UNDER + peopleposs + CONTROL)
 
-continuous << Optional(subject) +  delimitedListAnd(properties) + Optional(until) + Optional(unless)
-
-condition << Group( \
+condition << ( \
 		ENTER + zone + Optional(undercontrol)
 		| LEAVE + zone
 		| DIE
@@ -43,7 +22,7 @@ condition << Group( \
 		| people + CONTROL + objects
 )
 
-lifepay << PAY + quantity + LIFE
+lifepay << (PAY + quantity + LIFE)
 
 prevention << (PREVENT + Optional(THE + NEXT) + quantity
 		+ DAMAGE + Literal("that would be dealt")
@@ -53,17 +32,11 @@ prevention << (PREVENT + Optional(THE + NEXT) + quantity
 
 cantregenerate << subject + CANT + BE + REGENERATE
 
-where << ( \
-	WHERE + XVAR + BE + Optional(THE+NUMBER+OF) + objects
-)
+where << (WHERE + XVAR + BE + Optional(THE+NUMBER+OF) + objects)
 
-equal << ( \
-	EQUAL + TO + THE + NUMBER + OF + objects
-)
+equal << (EQUAL + TO + THE + NUMBER + OF + objects)
 
-for_ << ( \
-	FOR + EACH + objects
-)
+for_ << (FOR + EACH + objects)
 
 effect << Group( \
 		DESTROY + objects + Optional(cantregenerate)
