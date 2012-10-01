@@ -15,13 +15,13 @@ def subtype(s,l,t):
 def nontype(s,l,t):
 	return wrap("not", t[1])
 
-def supertypes(s,l,t):
+def cardsupertypes(s,l,t):
 	return wrap("supertypes", t)
 
-def types(s,l,t):
+def cardtypes(s,l,t):
 	return wrap("types", t)
 
-def subtypes(s,l,t):
+def cardsubtypes(s,l,t):
 	return wrap("subtypes", t)
 
 def cardtypeline(s,l,t):

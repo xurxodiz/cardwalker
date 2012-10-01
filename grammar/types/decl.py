@@ -20,8 +20,8 @@ subtype = Forward().setParseAction(act.subtype)
 
 nontype = Forward().setParseAction(act.nontype)
 
-supertypes = Forward().setParseAction(act.supertypes)
-types = Forward().setParseAction(act.types)
-subtypes = Forward().setParseAction(act.subtypes)
+cardsupertypes = Forward().setParseAction(act.cardsupertypes)
+cardtypes = Forward().setParseAction(act.cardtypes)
+cardsubtypes = Forward().setParseAction(act.cardsubtypes)
 
 cardtypeline = Forward().setParseAction(act.cardtypeline)

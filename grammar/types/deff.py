@@ -24,12 +24,12 @@ subtype << (spell_type | enchantment_type | planeswalker_type | artifact_type | 
 
 nontype << NON + (supertype | subtype | type_)
 
-supertypes << OneOrMore(supertype)
-types << OneOrMore(type_)
-subtypes << OneOrMore(subtype)
+cardsupertypes << OneOrMore(supertype)
+cardtypes << OneOrMore(type_)
+cardsubtypes << OneOrMore(subtype)
 
 cardtypeline << (
-	Optional(supertypes)
-	+ types
-	+ Optional(Suppress(DASH) + subtypes)
+	Optional(cardsupertypes)
+	+ cardtypes
+	+ Optional(Suppress(DASH) + cardsubtypes)
 ) + EOL

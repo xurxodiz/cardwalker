@@ -1,85 +1,93 @@
 from pyparsing import *
 
-change = Forward()
-amount = Forward()
+import act
 
-uptoamount = Forward()
-an = Forward()
-another = Forward()
-alll = Forward()
+change = Forward().setParseAction(act.change)
+amount = Forward().setParseAction(act.amount)
+
+uptoamount = Forward().setParseAction(act.uptoamount)
+an = Forward().setParseAction(act.an)
+another = Forward().setParseAction(act.another)
+alll = Forward().setParseAction(act.alll)
 
 quantity = Forward()
 
-target = Forward()
-quantitytarget = Forward()
-this = Forward()
-that = Forward()
-other = Forward()
-each = Forward()
-its = Forward()
-the = Forward()
+target = Forward().setParseAction(act.target)
+quantitytarget = Forward().setParseAction(act.quantitytarget)
+this = Forward().setParseAction(act.this)
+that = Forward().setParseAction(act.that)
+other = Forward().setParseAction(act.other)
+each = Forward().setParseAction(act.each)
+its = Forward().setParseAction(act.its)
+the = Forward().setParseAction(act.the)
 
-det = Forward()
+det = Forward().setParseAction(act.det)
 
-people = Forward()
+globaldet = Forward()
 
-your = Forward()
-their = Forward()
-his = Forward()
-peoploss = Forward()
+detpeople = Forward().setParseAction(act.detpeople)
+people = Forward().setParseAction(act.people)
 
-peopleposs = Forward()
+your = Forward().setParseAction(act.your)
+their = Forward().setParseAction(act.their)
+his = Forward().setParseAction(act.his)
+peoploss = Forward().setParseAction(act.peoploss)
 
-detzone = Forward()
-thebattlefield = Forward()
-thetopoflibrary = Forward()
+peopleposs = Forward().setParseAction(act.peopleposs)
 
-zone = Forward()
+detzone = Forward().setParseAction(act.detzone)
+thebattlefield = Forward().setParseAction(act.thebattlefield)
+thetopbottomoflibrary = Forward().setParseAction(act.thetopbottomoflibrary)
 
-peoplecontrol = Forward()
-inzone = Forward()
-ofzone = Forward()
-fromzone = Forward()
+zone = Forward().setParseAction(act.zone)
+
+peoplecontrol = Forward().setParseAction(act.peoplecontrol)
+inzone = Forward().setParseAction(act.inzone)
+ofzone = Forward().setParseAction(act.ofzone)
+fromzone = Forward().setParseAction(act.fromzone)
 
 where = Forward()
 
-lifetotal = Forward()
-handsize = Forward()
+lifetotal = Forward().setParseAction(act.lifetotal)
+handsize = Forward().setParseAction(act.handsize)
 
 resource = Forward()
+
+topnum = Forward().setParseAction(act.topnum)
+
+tapped = Forward().setParseAction(act.tapped)
+untapped = Forward().setParseAction(act.untapped)
+enchanted = Forward().setParseAction(act.enchanted)
+equipped = Forward().setParseAction(act.equipped)
+exiled = Forward().setParseAction(act.exiled)
+sacrificed = Forward().setParseAction(act.sacrificed)
+haunted = Forward().setParseAction(act.haunted)
 
 adjective = Forward()
 
 andadjectives = Forward()
-oradjectives = Forward()
+oradjectives = Forward().setParseAction(act.oradjectives)
 consadjectives = Forward()
 
-adjectives = Forward()
+adjectives = Forward().setParseAction(act.adjectives)
 
-andsubtypes = Forward()
-orsubtypes = Forward()
+noun = Forward()
+andnoun = Forward()
+ornoun = Forward().setParseAction(act.ornoun)
+consnoun = Forward()
 
-thesubtypes = Forward()
+baseobject_ = Forward().setParseAction(act.baseobject_)
 
-andtypes = Forward()
-ortypes = Forward()
-constypes = Forward()
+object_ = Forward().setParseAction(act.object_)
+orobjects = Forward().setParseAction(act.orobjects)
+andobjects = Forward()
+consobjects = Forward()
+detobjects = Forward()
+anddetobjects = Forward()
+ordetobjects = Forward().setParseAction(act.ordetobjects)
+consdetobjects = Forward()
 
-thetypes = Forward()
+objects = Forward().setParseAction(act.objects)
 
-andconcepts = Forward()
-orconcepts = Forward()
-consconcepts = Forward()
-
-theconcepts = Forward()
-
-baseobject_ = Forward()
-
-object_ = Forward()
-
-it = Forward()
-
-objects = Forward()
-
-mayer = Forward()
-subject = Forward()
+mayer = Forward().setParseAction(act.mayer)
+subject = Forward().setParseAction(act.subject)

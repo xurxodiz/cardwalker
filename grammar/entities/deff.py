@@ -9,7 +9,7 @@ from ..constants.zones.deff import GRAVEYARD, BATTLEFIELD, HAND, LIBRARY, TOP, B
 from ..constants.concepts.deff import concept
 from ..constants.resources.deff import LIFE, TOTAL, SIZE
 from ..mana.deff import color
-from ..types.deff import cardname, nontype, supertype, subtype, type_, subtypes, types
+from ..types.deff import cardname, nontype, supertype, subtype, type_
 
 
 from decl import *
@@ -33,12 +33,15 @@ each << EACH
 its << ITS
 the << THE
 
-det << (target|quantitytarget|quantity|peopleposs|this|that|other|each|its|the)
+globaldet << (target|quantitytarget|quantity|this|that|other|each|its|the)
 
-people << delimitedListAnd(
-	Optional(det)
-	+ (YOU | PLAYER | OPPONENT | CONTROLLER | OWNER)
-)
+det << (globaldet|peopleposs)
+
+# usting just 'det' ends in infinite left recursion
+# thus the differentiation above
+detpeople << globaldet + (PLAYER | OPPONENT | CONTROLLER | OWNER)
+
+people << delimitedListAnd(YOU|detpeople)
 
 your << YOUR
 their << THEIR
@@ -49,9 +52,9 @@ peopleposs << (your|their|his|peoploss)
 
 detzone << det + (GRAVEYARD|HAND|LIBRARY)
 thebattlefield << THE + BATTLEFIELD
-thetopoflibrary << THE + TOP + OF + peopleposs + LIBRARY
+thetopbottomoflibrary << THE + (TOP|BOTTOM) + OF + peopleposs + LIBRARY
 
-zone << (detzone|thebattlefield|thetopoflibrary)
+zone << (detzone|thebattlefield|thetopbottomoflibrary)
 
 peoplecontrol << people + CONTROL
 inzone << IN + zone
@@ -65,54 +68,50 @@ handsize << peopleposs + HAND + SIZE
 
 resource << (lifetotal|handsize)
 
+topnum << (TOP|BOTTOM) + (NUM|FULLNUM)
+
+tapped << TAP
+untapped << UNTAP
+enchanted << ENCHANT
+equipped << EQUIP
+exiled << EXILE
+sacrificed << SACRIFICE
+haunted << HAUNT
+
 adjective << ( \
 	color
 	| nontype
 	| supertype
-	| (TOP|BOTTOM) + (NUM|FULLNUM)
-	# coming next: participles
-	| TAP
-	| UNTAP
-	| ENCHANT
-	| EQUIP
-	| EXILE
-	| SACRIFICE
-	| HAUNT
+	| topnum
+	| tapped
+	| untapped
+	| enchanted
+	| equipped
+	| exiled
+	| sacrificed
+	| haunted
 )
 
 andadjectives << delimitedListAnd(adjective)
 oradjectives << delimitedListOr(adjective)
 consadjectives << OneOrMore(adjective)
 
-adjectives << (andadjectives|oradjectives|consadjectives)
+adjectives << (consadjectives ^ andadjectives ^ oradjectives)
 
-andsubtypes << delimitedListAnd(subtype)
-orsubtypes << delimitedListOr(subtype)
+noun << (subtype ^ type_ ^ concept)
 
-thesubtypes << (andsubtypes|orsubtypes|subtypes)
+andnoun << delimitedListAnd(noun)
+ornoun << delimitedListOr(noun)
+consnoun << OneOrMore(noun)
 
-andtypes << delimitedListAnd(type_)
-ortypes << delimitedListOr(type_)
+baseobject_ << OneOrMore(consnoun ^ andnoun ^ ornoun)
 
-thetypes << (andtypes|ortypes|types)
+object_ << Optional(det) + Optional(adjectives) + baseobject_ + Optional(where)
+orobjects << delimitedListOr(object_)
+andobjects << delimitedListAnd(object_)
+consobjects << OneOrMore(object_ )
 
-andconcepts << delimitedListAnd(concept)
-orconcepts << delimitedListOr(concept)
-consconcepts << OneOrMore(concept)
+objects << (andobjects ^ orobjects ^ consdetobjects ^ cardname) + Optional(where)
 
-theconcepts << (andconcepts|orconcepts|consconcepts)
-
-baseobject_ << (thesubtypes|thetypes|theconcepts)
-
-object_ << Optional(adjectives) + baseobject_ + Optional(where)
-
-objects << (
-	delimitedListAnd(
-		Optional(det)
-		+ delimitedListOr(object_)
-	)
-	| cardname
-)
-
-mayer << people + Optional(MAY + Optional(HAVE + (people|objects)))
+mayer << people + MAY + Optional(HAVE + (people|objects))
 subject << (resource|mayer|people|objects)
