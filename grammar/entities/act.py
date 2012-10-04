@@ -151,8 +151,11 @@ def orobjects(s,l,t):
 def ordetobjects(s,l,t):
 	return wrap("option", t)
 
-def objects(s,l,t):
-	return wrap("objects", t)
+def it(s,l,t):
+	return emptytag("it")
+
+def they(s,l,t):
+	return emptytag("they")
 
 def mayer(s,l,t):
 	if len(t) > 2:

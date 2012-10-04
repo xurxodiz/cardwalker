@@ -2,11 +2,11 @@ from pyparsing import *
 
 from ..constants.types.deff import *
 from ..constants.modifiers.deff import NON
-from ..constants.punctuation.deff import DASH, EOL
+from ..constants.punctuation.deff import DASH, EOL, APOS
 
 from decl import *
 
-cardname << CARDNAME
+cardname << (CARDNAME)
 
 supertype << SUPERTYPE
 type_ << TYPE_

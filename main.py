@@ -14,15 +14,20 @@ else:
 def parse(s):
     global cleared, total
     total += 1
+
     try:
-        tree = "".join(card.parseString(s))
+        """tree = "".join(card.parseString(s))
         root = etree.fromstring(tree)
         r = root.xpath('//name')
-        print "Parsed: %s" % r[0].text
+        print "Parsed: %s" % r[0].text"""
+
+        card.parseString(s)
+        print "Parsed: %s" % name
         cleared += 1
+
     except:
         try:
-            print "Error parsing: %s" % storage.splitlines()[0]
+            print "Error parsing: %s" % name
         except:
             print "Error"
 
@@ -36,6 +41,7 @@ with open(path, "r") as f:
 
     for line in f:
         if not line.strip():
+            name = storage.splitlines()[0]
             if single:
                 deep_parse(storage)
             else:
@@ -44,4 +50,4 @@ with open(path, "r") as f:
         else:
             storage += line
     if not single:
-        print "Passed %s out of %s" % (cleared, total)
+        print "Parsed %s out of %s" % (cleared, total)

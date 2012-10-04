@@ -9,8 +9,7 @@ from ..expansions.deff import cardexpansions
 
 from decl import *
 
-card << (
-	cardname
+card << (cardname
 	+ Optional(cardcost)
 	+ cardtypeline
 	+ Optional(cardptl)

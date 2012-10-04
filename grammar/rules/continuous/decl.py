@@ -1,31 +1,33 @@
 from pyparsing import *
 
-turn = Forward()
-upkeep = Forward()
-drawstep = Forward()
-precombat = Forward()
-combat = Forward()
-poscombat = Forward()
+import act
 
-step = Forward()
+turn = Forward().setParseAction(act.turn)
+upkeep = Forward().setParseAction(act.upkeep)
+drawstep = Forward().setParseAction(act.drawstep)
+precombat = Forward().setParseAction(act.precombat)
+combat = Forward().setParseAction(act.combat)
+poscombat = Forward().setParseAction(act.poscombat)
 
-until = Forward()
+step = Forward().setParseAction()
 
-havekeywords = Forward()
-getptmod = Forward()
-beindestructible = Forward()
-beunblockable = Forward()
-gaincontrol = Forward()
-cantblock = Forward()
-mustattack = Forward()
+until = Forward().setParseAction(act.until)
 
-#quotedtriggered = Forward()
-#quotedactivated = Forward()
-#abilities = Forward()
-#gainabilities = Forward()
+havekeywords = Forward().setParseAction(act.havekeywords)
+getptmod = Forward().setParseAction(act.getptmod)
+beindestructible = Forward().setParseAction(act.beindestructible)
+beunblockable = Forward().setParseAction(act.beunblockable)
+gaincontrol = Forward().setParseAction(act.gaincontrol)
+cantblock = Forward().setParseAction(act.cantblock)
+mustattack = Forward().setParseAction(act.mustattack)
 
-property_ = Forward()
+#quotedtriggered = Forward().setParseAction(act.quotedtriggered)
+#quotedactivated = Forward().setParseAction(act.quotedactivated)
+#abilities = Forward().setParseAction(act.abilities)
+#gainabilities = Forward().setParseAction(act.gainabilities)
 
-properties = Forward()
+property_ = Forward().setParseAction()
 
-continuous = Forward()
+properties = Forward().setParseAction(act.properties)
+
+continuous = Forward().setParseAction(act.continuous)

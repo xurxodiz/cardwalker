@@ -6,11 +6,12 @@ from decl import *
 
 MAY << CaselessLiteral("may")
 
-BE << oneOfNamed("is are")
+BE << oneOfNamed("is are be")
 HAVE << oneOfNamed("has have")
 GET << oneOfNamed("get gets")
 CANT << CaselessLiteral("can't")
 MUST << CaselessLiteral("must")
+WOULD << CaselessLiteral("would")
 
 DESTROY << oneOfNamed("destroy destroys destroyed")
 EXILE << oneOfNamed("exile exiles exiled")

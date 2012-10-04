@@ -1,6 +1,6 @@
-A Display of My Dark Power
-GG
-Instant
-Target creature is indestructible until end of turn.
-MRU-R, 13E-C
+Captain's Call
+3W
+Sorcery
+Put three 1/1 white Soldier creature tokens onto the battlefield.
+M13-C
 

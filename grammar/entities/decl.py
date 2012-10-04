@@ -87,7 +87,10 @@ anddetobjects = Forward()
 ordetobjects = Forward().setParseAction(act.ordetobjects)
 consdetobjects = Forward()
 
-objects = Forward().setParseAction(act.objects)
+it = Forward().setParseAction(act.it)
+they = Forward().setParseAction(act.they)
+
+objects = Forward()
 
 mayer = Forward().setParseAction(act.mayer)
 subject = Forward().setParseAction(act.subject)

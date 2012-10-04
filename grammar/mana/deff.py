@@ -24,7 +24,7 @@ chybsymbol << LPAREN + manasymbol + SLASH + manasymbol + RPAREN
 numcost << NUM
 xcost << XVAR
 
-singlecost << (numcost|xcost|snowsymbol|manasymbol|physymbol|hybsymbol|chybsymbol)
+singlecost << (numcost|xcost|manasymbol|snowsymbol|physymbol|hybsymbol|chybsymbol)
 manapayment << OneOrMore(LBRACE + singlecost + RBRACE)
 
-cardcost << OneOrMore(singlecost) + EOL
+cardcost << (OneOrMore(~EOL + singlecost) + SkipTo(EOL))

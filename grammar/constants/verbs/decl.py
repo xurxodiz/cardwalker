@@ -7,6 +7,7 @@ HAVE = Forward()
 GET = Forward()
 CANT = Forward()
 MUST = Forward()
+WOULD = Forward()
 
 DESTROY = Forward()
 EXILE = Forward()

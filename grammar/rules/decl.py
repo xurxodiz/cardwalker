@@ -7,15 +7,6 @@ triggered = Forward()
 intervif = Forward()
 
 condition = Forward()
-lifepay = Forward()
-prevention = Forward()
-cantregenerate = Forward()
-
-equal = Forward()
-for_ = Forward()
-
-effect = Forward()
-oneshot = Forward()
 
 cost = Forward()
 activated = Forward()

@@ -6,7 +6,7 @@ from ..constants.math.deff import PLUS, MINUS, NUM, XVAR, FULLNUM
 from ..constants.people.deff import *
 from ..constants.verbs.deff import MAY, HAVE, CONTROL, TAP, UNTAP, ENCHANT, EQUIP, EXILE, SACRIFICE, HAUNT
 from ..constants.zones.deff import GRAVEYARD, BATTLEFIELD, HAND, LIBRARY, TOP, BOTTOM
-from ..constants.concepts.deff import concept
+from ..constants.concepts.deff import concept, IT, THEY
 from ..constants.resources.deff import LIFE, TOTAL, SIZE
 from ..mana.deff import color
 from ..types.deff import cardname, nontype, supertype, subtype, type_
@@ -14,14 +14,14 @@ from ..types.deff import cardname, nontype, supertype, subtype, type_
 from decl import *
 
 change << Optional(PLUS|MINUS) + amount
-amount << ((NUM + change) ^ NUM ^ (XVAR + change) ^ XVAR ^ FULLNUM)
+amount << ((NUM + change) | NUM | (XVAR + change) | XVAR | FULLNUM)
 
 uptoamount << UPTO + amount
 an << AN
 another << ANOTHER
 alll << ALL
 
-quantity << (an ^ another ^ alll ^ amount ^ uptoamount)
+quantity << (an | another | alll | amount | uptoamount)
 
 target << TARGET
 quantitytarget << quantity + TARGET
@@ -32,7 +32,7 @@ each << EACH
 its << ITS
 the << THE
 
-globaldet << (quantity ^ target ^ quantitytarget ^ this ^ that ^ other ^ each ^ its ^ the)
+globaldet << (quantitytarget | quantity | target | this | that | other | each | its | the)
 
 det << (globaldet|peopleposs)
 
@@ -95,22 +95,27 @@ andadjectives << delimitedListAnd(adjective)
 oradjectives << delimitedListOr(adjective)
 consadjectives << OneOrMore(adjective)
 
-adjectives << (consadjectives ^ andadjectives ^ oradjectives)
+adjectives << (consadjectives | andadjectives | oradjectives)
 
-noun << (subtype ^ type_ ^ concept)
+noun << (subtype | type_ | concept)
 
 andnoun << delimitedListAnd(noun)
 ornoun << delimitedListOr(noun)
 consnoun << OneOrMore(noun)
 
-baseobject_ << OneOrMore(consnoun ^ andnoun ^ ornoun)
+baseobject_ << OneOrMore(consnoun | andnoun | ornoun)
 
 object_ << Optional(det) + Optional(adjectives) + baseobject_
 orobjects << delimitedListOr(object_)
 andobjects << delimitedListAnd(object_)
 consobjects << OneOrMore(object_ )
 
-objects << (andobjects ^ orobjects ^ consdetobjects ^ cardname) + Optional(where)
+it << IT
+they << THEY
+
+objects << (
+	(andobjects | orobjects | consdetobjects | cardname) + Optional(where)
+)
 
 mayer << people + MAY + Optional(HAVE + (people|objects))
-subject << (resource|mayer|people|objects)
+subject << (it|they|resource|mayer|people|objects)
