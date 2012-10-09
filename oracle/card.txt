@@ -1,6 +1,6 @@
-Captain's Call
-3W
-Sorcery
-Put three 1/1 white Soldier creature tokens onto the battlefield.
-M13-C
+Angel's Mercy
+2WW
+Instant
+You gain 7 life.
+M10-C, M12-C, AVR-C, M13-C
 

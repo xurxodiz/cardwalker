@@ -28,10 +28,12 @@ def parse(s):
     except:
         try:
             print "Error parsing: %s" % name
+            #print "<<%s>>" % s
         except:
             print "Error"
 
 def deep_parse(s):
+    print "<<%s>>" % s
     tree = "".join(card.parseString(s))
     root = etree.fromstring(tree)
     print(etree.tostring(root, pretty_print=True))
@@ -40,6 +42,7 @@ with open(path, "r") as f:
     storage = ""
 
     for line in f:
+        storage += line
         if not line.strip():
             name = storage.splitlines()[0]
             if single:
@@ -47,7 +50,6 @@ with open(path, "r") as f:
             else:
                 parse(storage)
             storage = ""
-        else:
-            storage += line
+
     if not single:
         print "Parsed %s out of %s" % (cleared, total)

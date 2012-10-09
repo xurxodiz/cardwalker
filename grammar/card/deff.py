@@ -1,5 +1,7 @@
 from pyparsing import *
 
+ParserElement.setDefaultWhitespaceChars("\t ")
+
 from ..constants.punctuation.deff import EOL
 from ..types.deff import cardtypeline, cardname
 from ..mana.deff import cardcost
@@ -13,6 +15,6 @@ card << (cardname
 	+ Optional(cardcost)
 	+ cardtypeline
 	+ Optional(cardptl)
-	+ cardrules
+	+ Optional(cardrules)
 	+ cardexpansions
 )

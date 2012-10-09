@@ -13,7 +13,7 @@ def basic_keyword(s,l,t):
 	return emptytag(lowername(t))
 
 def haunt(s,l,t):
-	return emptytag(t[0])
+	return emptytag(lowername(t))
 
 def number_keyword(s,l,t):
 	return wrap(lowername(t), wrap("number", t[1]))

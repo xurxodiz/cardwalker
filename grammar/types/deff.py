@@ -6,7 +6,7 @@ from ..constants.punctuation.deff import DASH, EOL, APOS
 
 from decl import *
 
-cardname << (CARDNAME)
+cardname << (CARDNAME + EOL)
 
 supertype << SUPERTYPE
 type_ << TYPE_
@@ -32,4 +32,5 @@ cardtypeline << (
 	Optional(cardsupertypes)
 	+ cardtypes
 	+ Optional(Suppress(DASH) + cardsubtypes)
+	+ EOL
 )

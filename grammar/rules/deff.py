@@ -37,9 +37,9 @@ trigger_clause << (when_trigger
 triggered << Group(trigger_clause) + COMMA + Group(oneshot|continuous)
 """
 
-rule << (oneshot ^ triggered ^ activated ^ keywords ^ continuous) + Optional(POINT)
+rule << (oneshot | triggered | activated | keywords | continuous) + Optional(POINT)
 
 reminder << Suppress(LPAREN + SkipTo(RPAREN) + RPAREN)
-rulelist << OneOrMore(~EOL + rule) + Optional(reminder)
+rulelist << (OneOrMore(rule) + Optional(reminder) + EOL)
 
-cardrules << ZeroOrMore(rulelist)
+cardrules << OneOrMore(rulelist)

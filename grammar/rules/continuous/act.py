@@ -22,7 +22,7 @@ def until(s,l,t):
 	return wrap("until", wrap("turn", emptytag("end")))
 	
 def havekeywords(s,l,t):
-	return wrap("keywords", t[1:])
+	return t[1]
 
 def getptmod(s,l,t):
 	return t[1]
