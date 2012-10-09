@@ -5,7 +5,7 @@ from ..functions.xml.deff import wrap, concat
 def ptmod(s,l,t):
 	p = wrap("power", t[0])
 	t = wrap("toughness", t[1])
-	wrap("ptmod", [p, t])
+	return wrap("ptmod", [p,t])
 
 def loyaltymod(s,l,t):
 	return wrap("loyaltymod", t[0])

@@ -1,6 +1,6 @@
-Angel's Mercy
-2WW
+Divine Verdict
+3W
 Instant
-You gain 7 life.
-M10-C, M12-C, AVR-C, M13-C
+Destroy it.
+M10-C, M13-C
 

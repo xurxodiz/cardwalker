@@ -28,12 +28,10 @@ def parse(s):
     except:
         try:
             print "Error parsing: %s" % name
-            #print "<<%s>>" % s
         except:
             print "Error"
 
 def deep_parse(s):
-    print "<<%s>>" % s
     tree = "".join(card.parseString(s))
     root = etree.fromstring(tree)
     print(etree.tostring(root, pretty_print=True))

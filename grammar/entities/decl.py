@@ -55,6 +55,8 @@ resource = Forward()
 
 topnum = Forward().setParseAction(act.topnum)
 
+attacking = Forward().setParseAction(act.attacking)
+blocking = Forward().setParseAction(act.blocking)
 tapped = Forward().setParseAction(act.tapped)
 untapped = Forward().setParseAction(act.untapped)
 enchanted = Forward().setParseAction(act.enchanted)
@@ -74,18 +76,16 @@ adjectives = Forward().setParseAction(act.adjectives)
 noun = Forward()
 andnoun = Forward()
 ornoun = Forward().setParseAction(act.ornoun)
-consnoun = Forward()
 
 baseobject_ = Forward().setParseAction(act.baseobject_)
 
 object_ = Forward().setParseAction(act.object_)
 orobjects = Forward().setParseAction(act.orobjects)
 andobjects = Forward()
-consobjects = Forward()
+
 detobjects = Forward()
 anddetobjects = Forward()
 ordetobjects = Forward().setParseAction(act.ordetobjects)
-consdetobjects = Forward()
 
 it = Forward().setParseAction(act.it)
 they = Forward().setParseAction(act.they)

@@ -15,7 +15,7 @@ def colorname(s,l,t):
 		return emptytag("G")
 
 def noncolorname(s,l,t):
-	return wrap("not", [colorname(s,l,t)])
+	return wrap("not", colorname(s,l,[t[1]]))
 
 def colorfeature(s,l,t):
 	if "colorless" == t[1]:

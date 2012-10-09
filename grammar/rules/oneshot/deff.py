@@ -12,7 +12,7 @@ from ...constants.timing.deff import COMBAT, TURN
 from ...constants.verbs.deff import *
 from ...entities.deff import quantity, subject, objects, zone, peopleposs
 from ...mana.deff import manapayment
-from ...ptl.deff import cardptl, ptmod
+from ...ptl.deff import ptstart, ptmod
 
 from ...functions.deff import *
 from ..keywords.deff import keywords
@@ -49,7 +49,7 @@ sacrifice << SACRIFICE + objects
 regenerate << REGENERATE + objects
 putcounter << PUT + quantity + ptmod + COUNTER + ON + objects 
 
-tokens << cardptl + objects + Optional(WITH + delimitedListAnd(keywords))
+tokens << ptstart + objects + Optional(Suppress(WITH) + delimitedListAnd(keywords))
 
 puttoken << (Suppress(PUT) + quantity + tokens
 		+ Suppress(ONTO) + zone + Optional(undercontrol)

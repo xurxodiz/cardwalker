@@ -8,7 +8,7 @@ def change(s,l,t):
 	elif "-" == t[0]:
 		return wrap("decreaseby", t[1])
 	else: # doesn't matter, it's zero
-		return wrap("increaseby", wrap("num", [0]))
+		return wrap("increaseby", wrap("num", "0"))
 
 def amount(s,l,t):
 	return concat(t)
@@ -108,6 +108,12 @@ def handsize(s,l,t):
 
 def topnum(s,l,t):
 	return wrap(t[0], t[1])
+
+def attacking(s,l,t):
+	return emptytag("attacking")
+
+def blocking(s,l,t):
+	return emptytag("blocking")
 
 def tapped(s,l,t):
 	return emptytag("tapped")

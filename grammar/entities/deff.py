@@ -4,7 +4,7 @@ from ..constants.prepositions.deff import UPTO, OF, IN, FROM
 from ..constants.articles.deff import *
 from ..constants.math.deff import PLUS, MINUS, NUM, XVAR, FULLNUM
 from ..constants.people.deff import *
-from ..constants.verbs.deff import MAY, HAVE, CONTROL, TAP, UNTAP, ENCHANT, EQUIP, EXILE, SACRIFICE, HAUNT
+from ..constants.verbs.deff import *
 from ..constants.zones.deff import GRAVEYARD, BATTLEFIELD, HAND, LIBRARY, TOP, BOTTOM
 from ..constants.concepts.deff import concept, IT, THEY
 from ..constants.resources.deff import LIFE, TOTAL, SIZE
@@ -34,13 +34,14 @@ the << THE
 
 globaldet << (quantitytarget | quantity | target | this | that | other | each | its | the)
 
-det << (globaldet|peopleposs)
+det << (peopleposs|globaldet)
 
 # usting just 'det' ends in infinite left recursion
-# thus the differentiation above
-detpeople << globaldet + (PLAYER | OPPONENT | CONTROLLER | OWNER)
+# because of peoplepos
+# thus the hack with globaldet/YOUR
+detpeople << (globaldet|YOUR) + (PLAYER | OPPONENT | CONTROLLER | OWNER)
 
-people << delimitedListAnd(YOU|detpeople)
+people << delimitedListAnd(detpeople|YOU)
 
 your << YOUR
 their << THEIR
@@ -69,6 +70,8 @@ resource << (lifetotal|handsize)
 
 topnum << (TOP|BOTTOM) + (NUM|FULLNUM)
 
+attacking << ATTACK
+blocking << BLOCK
 tapped << TAP
 untapped << UNTAP
 enchanted << ENCHANT
@@ -82,6 +85,8 @@ adjective << ( \
 	| nontype
 	| supertype
 	| topnum
+	| attacking
+	| blocking
 	| tapped
 	| untapped
 	| enchanted
@@ -93,28 +98,29 @@ adjective << ( \
 
 andadjectives << delimitedListAnd(adjective)
 oradjectives << delimitedListOr(adjective)
-consadjectives << OneOrMore(adjective)
 
-adjectives << (consadjectives | andadjectives | oradjectives)
+adjectives << OneOrMore(andadjectives ^ oradjectives)
 
 noun << (subtype | type_ | concept)
 
 andnoun << delimitedListAnd(noun)
 ornoun << delimitedListOr(noun)
-consnoun << OneOrMore(noun)
 
-baseobject_ << OneOrMore(consnoun | andnoun | ornoun)
+baseobject_ << OneOrMore(andnoun ^ ornoun)
 
 object_ << Optional(det) + Optional(adjectives) + baseobject_
 orobjects << delimitedListOr(object_)
 andobjects << delimitedListAnd(object_)
-consobjects << OneOrMore(object_ )
 
 it << IT
 they << THEY
 
-objects << (
-	(andobjects | orobjects | consdetobjects | cardname) + Optional(where)
+objects << OneOrMore(
+	(andobjects ^ orobjects
+	| cardname
+	| it
+	| they
+	) + Optional(where)
 )
 
 mayer << people + MAY + Optional(HAVE + (people|objects))

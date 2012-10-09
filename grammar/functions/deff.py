@@ -12,15 +12,15 @@ def delimitedListOr(elem):
 def oneOfNamed(ssv):
 	# ssv - space separated values
 	lst = ssv.split()
-	return MatchFirst(map(CaselessKeyword, lst)).setResultsName(lst[0])
+	return Or(map(CaselessKeyword, lst)).setResultsName(lst[0])
 
 def named(sstr):
 	return CaselessLiteral(sstr).setResultsName(sstr.replace (" ", "_"))
 
 def loadFromFile(path):
 	with open(path) as f:
-		return MatchFirst([oneOfNamed(line.strip()) for line in f.read().splitlines()])
+		return Or([oneOfNamed(line.strip()) for line in f.read().splitlines()])
 
 def loadLinesFromFile(path):
 	with open(path) as f:
-		return MatchFirst([named(line.strip()) for line in f.read().splitlines()])
+		return Or([named(line.strip()) for line in f.read().splitlines()])
