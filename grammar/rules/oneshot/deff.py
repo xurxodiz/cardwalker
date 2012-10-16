@@ -4,13 +4,17 @@ from ...constants.articles.deff import *
 from ...constants.connectors.deff import WHERE
 from ...constants.concepts.deff import COUNTER
 from ...constants.math.deff import XVAR
-from ...constants.modifiers.deff import NEXT, NON, EQUAL, ATRANDOM
+from ...constants.modifiers.deff import NEXT, NON, EQUAL, ATRANDOM, COMBAT
 from ...constants.prepositions.deff import *
 from ...constants.punctuation.deff import POINT
 from ...constants.resources.deff import DAMAGE, LIFE, NUMBER, MANA, POOL
-from ...constants.timing.deff import COMBAT, TURN
+from ...constants.timing.deff import TURN
 from ...constants.verbs.deff import *
-from ...entities.deff import quantity, subject, objects, zone, peopleposs
+from ...entities.articles.deff import quantity
+from ...entities.subjects.deff import subject
+from ...entities.objects.deff import objects
+from ...entities.zones.deff import zone
+from ...entities.people.deff import peopleposs, undercontrol
 from ...mana.deff import manapayment
 from ...ptl.deff import ptstart, ptmod
 
@@ -31,8 +35,6 @@ thisturn << THIS + TURN
 where << (Suppress(WHERE + XVAR + BE + Optional(THE+NUMBER+OF)) + objects)
 equal << (Suppress(EQUAL + TO + THE + NUMBER + OF) + objects)
 for_ << (FOR + objects)
-
-undercontrol << (UNDER + peopleposs + CONTROL)
 
 destroy << DESTROY + objects
 cantregenerate << CANT + BE + REGENERATE
@@ -65,10 +67,12 @@ become << BECOME + quantity # for life totals
 bereduced << BE + REDUCE + BY + quantity
 paylife << PAY + quantity + LIFE
 
-prevention << (Suppress(PREVENT) + thedamage + Suppress(THAT + WOULD + BE + DEAL)
-		+ Optional(thisturn)
-		+ Suppress(TO) + objects
-		+ Optional(thisturn)
+prevention << (Suppress(PREVENT) + thedamage
+		+ Suppress(THAT + WOULD + BE + DEAL)
+		+ ZeroOrMore(
+			thisturn
+			| Suppress(TO) + objects
+		)
 )
 
 addmana << ADD + manapayment + TO + peopleposs + MANA + POOL

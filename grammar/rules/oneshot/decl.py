@@ -16,8 +16,6 @@ where = Forward().setParseAction(act.where)
 equal = Forward().setParseAction(act.equal)
 for_ = Forward().setParseAction(act.for_)
 
-undercontrol = Forward().setParseAction(act.undercontrol)
-
 destroy = Forward().setParseAction(act.destroy)
 cantregenerate = Forward().setParseAction(act.cantregenerate)
 exile = Forward().setParseAction(act.exile)

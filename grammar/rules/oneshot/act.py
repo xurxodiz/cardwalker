@@ -26,9 +26,6 @@ def equal(s,l,t):
 def for_(s,l,t):
 	return wrap("for", t[1])
 
-def undercontrol(s,l,t):
-	return wrap("control", t[1])
-
 def destroy(s,l,t):
 	return wrap("destroy", t[1])
 

@@ -6,3 +6,5 @@ EQUAL = Forward()
 NON = Forward()
 ATRANDOM = Forward()
 ALONE = Forward()
+
+COMBAT = Forward()

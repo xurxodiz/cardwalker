@@ -7,7 +7,8 @@ from ...constants.prepositions.deff import UNTIL, OF
 from ...constants.verbs.deff import HAVE, GET, BE, GAIN, CONTROL, CANT, MUST, ATTACK, BLOCK
 from ...constants.timing.deff import TURN, UPKEEP, DRAWSTEP, PRECOMBAT, COMBAT, POSCOMBAT, END
 from ...constants.keywords.deff import INDESTRUCTIBLE, UNBLOCKABLE
-from ...entities.deff import objects, subject
+from ...entities.objects.deff import objects
+from ...entities.subjects.deff import subject
 from ...functions.deff import delimitedListAnd
 from ...ptl.deff import ptmod
 

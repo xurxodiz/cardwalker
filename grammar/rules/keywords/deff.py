@@ -6,8 +6,9 @@ from ...constants.keywords.deff import *
 from ...constants.verbs.deff import ENCHANT, HAUNT, EQUIP, FORTIFY
 from ...functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
 from ...mana.deff import color, manapayment
-from ...types.deff import land_type, subtype
-from ...entities.deff import objects, amount
+from ...types.deff import land_type, subtype, type_
+from ...entities.articles.deff import amount
+from ...entities.objects.deff import objects
 
 from decl import *
 
@@ -19,12 +20,12 @@ costed_keyword << COSTEDKEYWORD + manapayment
 haunt << HAUNT
 equip << EQUIP + manapayment
 fortify << FORTIFY + manapayment
-enchant << ENCHANT + objects
+enchant << ENCHANT + type_
 
 # cycling goes apart because we need to extract the type
 cycling << Optional(subtype) + Suppress(CYCLING) + manapayment
 
-landwalk << objects + WALK # legendary/nonbasic/forest/etc land
+landwalk << land_type + WALK # mountain/forest land
 
 protection << Suppress(PROTECTION) + delimitedListAnd(Suppress(FROM) + color)
 

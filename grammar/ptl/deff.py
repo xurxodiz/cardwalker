@@ -2,7 +2,7 @@ from pyparsing import *
 
 from ..constants.punctuation.deff import SLASH, LBRACKET, RBRACKET, EOL
 from ..constants.math.deff import PLUS, MINUS, NUM, XVAR, FULLNUM
-from ..entities.deff import change, amount
+from ..entities.articles.deff import change, amount
 
 from decl import * 
 
