@@ -1,5 +1,8 @@
 from ...functions.xml.deff import *
 
+def orobjects(s,l,t):
+	return wrap("option", t)
+
 def objects(s,l,t):
 	return wrap("objects", t)
 

@@ -22,7 +22,6 @@ this << THIS
 that << THAT
 other << OTHER
 each << EACH
-its << ITS
 the << THE
 
-det << (quantitytarget | quantity | target | this | that | other | each | its | the)
+det << (quantitytarget | quantity | target | this | that | other | each | the)

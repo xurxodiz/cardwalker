@@ -4,7 +4,7 @@ from ..adjectives.deff import adjectives
 from ..articles.deff import det
 from ..zones.deff import where
 from ...types.deff import subtype, type_, name
-from ...constants.concepts.deff import IT, THEY, SPELL, PERMANENT, CARD
+from ...constants.concepts.deff import SPELL, PERMANENT, CARD
 from ...functions.deff import delimitedListAnd, delimitedListOr
 
 from decl import *
@@ -22,13 +22,8 @@ thing << Optional(det) + Optional(adjectives) + basething
 orthings << delimitedListOr(thing)
 andthings << delimitedListAnd(thing)
 
-it << IT
-they << THEY
-
 things << OneOrMore(
 	(andthings ^ orthings
 	| name
-	| it
-	| they
 	) + Optional(where)
 )

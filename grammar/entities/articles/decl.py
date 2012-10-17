@@ -18,7 +18,6 @@ this = Forward().setParseAction(act.this)
 that = Forward().setParseAction(act.that)
 other = Forward().setParseAction(act.other)
 each = Forward().setParseAction(act.each)
-its = Forward().setParseAction(act.its)
 the = Forward().setParseAction(act.the)
 
 det = Forward().setParseAction(act.det)

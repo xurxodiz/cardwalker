@@ -41,9 +41,6 @@ def other(s,l,t):
 def each(s,l,t):
 	return emptytag(t[0])
 
-def its(s,l,t):
-	return emptytag(t[0])
-
 def the(s,l,t):
 	return emptytag(t[0])
 
