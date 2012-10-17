@@ -2,6 +2,7 @@ from pyparsing import *
 
 import act
 
+concept = Forward().setParseAction(act.concept)
 noun = Forward()
 andnoun = Forward()
 ornoun = Forward().setParseAction(act.ornoun)

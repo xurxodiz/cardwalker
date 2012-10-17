@@ -1,14 +1,15 @@
 from pyparsing import *
 
 from ..adjectives.deff import adjectives
-from ..people.deff import peopleposs
 from ..articles.deff import det
 from ..zones.deff import where
 from ...types.deff import subtype, type_, cardname
-from ...constants.concepts.deff import IT, THEY, concept
+from ...constants.concepts.deff import IT, THEY, SPELL, PERMANENT, CARD, ABILITY
 from ...functions.deff import delimitedListAnd, delimitedListOr
 
 from decl import *
+
+concept << (SPELL|PERMANENT|CARD|ABILITY)
 
 noun << (subtype | type_ | concept)
 

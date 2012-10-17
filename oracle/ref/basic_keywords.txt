@@ -41,3 +41,4 @@ Soulbond
 Split second
 Totem armor
 Fear
+Lifelink
