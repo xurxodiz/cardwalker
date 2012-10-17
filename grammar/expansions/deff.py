@@ -2,7 +2,7 @@ import string
 
 from pyparsing import *
 from ..constants.punctuation.deff import DASH, COMMA, EOL
-from ..constants.resources.deff import FREQUENCY
+from ..constants.types.deff import FREQUENCY
 from decl import *
 
 frequency << FREQUENCY

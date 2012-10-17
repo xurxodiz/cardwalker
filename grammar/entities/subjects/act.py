@@ -1,11 +1,13 @@
 from ...functions.xml.deff import *
 
-def mayer(s,l,t):
-	if len(t) > 2:
-		may = wrap("may", t[4])
-	elif len(t) == 2:
-		may = emptytag("may")
-	return concat([t[0], may])
+def objects(s,l,t):
+	return wrap("objects", t)
 
-def subject(s,l,t):
-	return wrap("subject", t[0])
+def mayhave(s,l,t):
+	return concat(t[0], wrap("may", t[4]))
+
+def may(s,l,t):
+	return concat(t[0], emptytag("may"))
+
+def subjects(s,l,t):
+	return wrap("subjects", t)

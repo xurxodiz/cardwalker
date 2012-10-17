@@ -8,7 +8,7 @@ from ...functions.deff import oneOfNamed, loadFromFile, delimitedListAnd
 from ...mana.deff import color, manapayment
 from ...types.deff import land_type, subtype, type_
 from ...entities.articles.deff import amount
-from ...entities.objects.deff import objects
+from ...entities.subjects.deff import objects
 
 from decl import *
 
@@ -29,10 +29,6 @@ landwalk << land_type + WALK # mountain/forest land
 
 protection << Suppress(PROTECTION) + delimitedListAnd(Suppress(FROM) + color)
 
-"""
-ability_keyword << loadFromFile("oracle/ref/ability_keywords.txt")
-"""
-
 keywords << delimitedListAnd( \
 		protection
 		| basic_keyword
@@ -45,9 +41,3 @@ keywords << delimitedListAnd( \
 		| equip
 		| fortify
 )
-
-"""
-		|number_keyword + (DASH + cardrules)
-		| costed_keyword + (DASH + oneshot)) 
-		| ability_keyword + DASH + cardrules
-)"""

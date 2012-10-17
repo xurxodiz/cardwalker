@@ -1,11 +1,14 @@
 from pyparsing import *
 
 from ..people.deff import people
-from ..objects.deff import objects
-from ..resources.deff import resource
+from ..things.deff import things
 from ...constants.verbs.deff import MAY, HAVE
 
 from decl import *
 
-mayer << people + MAY + Optional(HAVE + (people|objects))
-subject << (mayer|people|objects)
+objects = (people|things)
+
+mayhave << people + MAY + HAVE + objects
+may << people + MAY
+
+subjects << (mayhave|may|objects)

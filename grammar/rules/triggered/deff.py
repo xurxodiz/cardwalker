@@ -8,8 +8,7 @@ from ...constants.connectors.deff import WHEN, WHENEVER
 from ...constants.resources.deff import LIFE
 from ...constants.modifiers.deff import ALONE
 from ...entities.people.deff import undercontrol, peoplecontrol
-from ...entities.objects.deff import objects
-from ...entities.subjects.deff import subject
+from ...entities.subjects.deff import objects
 from ...entities.zones.deff import zone
 from ..oneshot.deff import oneshot
 from ..continuous.deff import continuous
@@ -34,7 +33,7 @@ trigger << (
 		| controlobjects
 )
 
-when_trigger << (WHEN|WHENEVER) + subject + trigger
+when_trigger << (WHEN|WHENEVER) + objects + trigger
 at_trigger << Empty()
 trigger << (when_trigger|at_trigger)
 

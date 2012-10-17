@@ -6,13 +6,13 @@ def concept(s,l,t):
 def ornoun(s,l,t):
 	return wrap("option", t)
 
-def baseobject_(s,l,t):
+def basething(s,l,t):
 	return wrap("base", t)
 
-def object_(s,l,t):
-	return wrap("object", t)
+def thing(s,l,t):
+	return wrap("thing", t)
 
-def orobjects(s,l,t):
+def orthings(s,l,t):
 	return wrap("option", t)
 
 def it(s,l,t):

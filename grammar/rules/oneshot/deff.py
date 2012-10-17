@@ -11,8 +11,7 @@ from ...constants.resources.deff import DAMAGE, LIFE, NUMBER, MANA, POOL
 from ...constants.timing.deff import TURN
 from ...constants.verbs.deff import *
 from ...entities.articles.deff import quantity
-from ...entities.subjects.deff import subject
-from ...entities.objects.deff import objects
+from ...entities.subjects.deff import subjects, objects
 from ...entities.zones.deff import zone
 from ...entities.people.deff import peopleposs, undercontrol
 from ...mana.deff import manapayment
@@ -106,4 +105,4 @@ effect << (
 		| counterspell
 ) + Optional(quantifier)
 
-oneshot << Optional(subject) + delimitedListAnd(effect)
+oneshot << Optional(subjects) + delimitedListAnd(effect)

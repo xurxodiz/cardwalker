@@ -2,5 +2,7 @@ from pyparsing import *
 
 import act
 
-mayer = Forward().setParseAction(act.mayer)
-subject = Forward().setParseAction(act.subject)
+objects = Forward().setParseAction(act.objects)
+mayhave = Forward().setParseAction(act.mayhave)
+may = Forward().setParseAction(act.may)
+subjects = Forward().setParseAction(act.subjects)

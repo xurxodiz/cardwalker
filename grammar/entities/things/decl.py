@@ -3,17 +3,18 @@ from pyparsing import *
 import act
 
 concept = Forward().setParseAction(act.concept)
+
 noun = Forward()
 andnoun = Forward()
 ornoun = Forward().setParseAction(act.ornoun)
 
-baseobject_ = Forward().setParseAction(act.baseobject_)
+basething = Forward().setParseAction(act.basething)
 
-object_ = Forward().setParseAction(act.object_)
-orobjects = Forward().setParseAction(act.orobjects)
-andobjects = Forward()
+thing = Forward().setParseAction(act.thing)
+orthings = Forward().setParseAction(act.orthings)
+andthings = Forward()
 
 it = Forward().setParseAction(act.it)
 they = Forward().setParseAction(act.they)
 
-objects = Forward()
+things = Forward()

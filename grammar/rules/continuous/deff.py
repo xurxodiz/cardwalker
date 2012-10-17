@@ -7,8 +7,7 @@ from ...constants.prepositions.deff import UNTIL, OF
 from ...constants.verbs.deff import HAVE, GET, BE, GAIN, CONTROL, CANT, MUST, ATTACK, BLOCK
 from ...constants.timing.deff import TURN, UPKEEP, DRAWSTEP, PRECOMBAT, COMBAT, POSCOMBAT, END
 from ...constants.keywords.deff import INDESTRUCTIBLE, UNBLOCKABLE
-from ...entities.objects.deff import objects
-from ...entities.subjects.deff import subject
+from ...entities.subjects.deff import subjects, objects
 from ...functions.deff import delimitedListAnd
 from ...ptl.deff import ptmod
 
@@ -31,17 +30,11 @@ gaincontrol << GAIN + CONTROL + OF + objects
 cantblock << CANT + BLOCK
 mustattack << MUST + ATTACK 
 
-#quotedtriggered << (QUOTE + triggered + QUOTE)
-#quotedactivated << (QUOTE + activated + QUOTE)
-#abilities << delimitedListAnd(keywords|ptmod|quotedtriggered|quotedactivated)
-#gainabilities << GAIN + abilities
-
 property_ << (
 	havekeywords
 	| getptmod
 	| beindestructible
 	| beunblockable
-	#| gainabilities
 	| gaincontrol
 	| cantblock
 	| mustattack
@@ -49,4 +42,4 @@ property_ << (
 
 properties << delimitedListAnd(property_)
 
-continuous << subject + properties + Optional(until)
+continuous << subjects + properties + Optional(until)
