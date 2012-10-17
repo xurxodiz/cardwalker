@@ -8,4 +8,4 @@ from ...constants.verbs.deff import MAY, HAVE
 from decl import *
 
 mayer << people + MAY + Optional(HAVE + (people|objects))
-subject << (resource|mayer|people|objects)
+subject << (mayer|people|objects)

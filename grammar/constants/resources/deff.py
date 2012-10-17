@@ -11,14 +11,10 @@ UNTAPSYMBOL << CaselessLiteral("Q")
 SNOWSYMBOL << CaselessLiteral("S")
 PHYSYMBOL << CaselessLiteral("P")
 
-FREQUENCY << oneOf("M R U C L S")
-
 DAMAGE << CaselessLiteral("damage")
 LIFE << CaselessLiteral("life")
 MANA << CaselessLiteral("mana")
 POOL << CaselessLiteral("pool")
-SOURCE << oneOfNamed("source sources")
 
 TOTAL << CaselessLiteral("total")
-SIZE << CaselessLiteral("size")
 NUMBER << CaselessLiteral("number")

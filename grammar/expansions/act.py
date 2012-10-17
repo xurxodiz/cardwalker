@@ -10,6 +10,3 @@ def expcode(s,l,t):
 
 def expansion(s,l,t):
 	return wrap("exp", t)
-	
-def cardexpansions(s,l,t):
-	return wrap("expansions", t)

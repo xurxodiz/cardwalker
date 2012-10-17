@@ -6,10 +6,11 @@ from ..constants.punctuation.deff import DASH, EOL, APOS
 
 from decl import *
 
-cardname << (CARDNAME + EOL)
+name << CARDNAME
 
 supertype << SUPERTYPE
 type_ << TYPE_
+
 basic_land_type << BASICLANDTYPE
 other_land_type << OTHERLANDTYPE
 creature_type << CREATURETYPE
@@ -24,13 +25,3 @@ subtype << (spell_type | enchantment_type | planeswalker_type | artifact_type | 
 
 nontype << NON + (supertype | subtype | type_)
 
-cardsupertypes << OneOrMore(supertype)
-cardtypes << OneOrMore(type_)
-cardsubtypes << OneOrMore(subtype)
-
-cardtypeline << (
-	Optional(cardsupertypes)
-	+ cardtypes
-	+ Optional(Suppress(DASH) + cardsubtypes)
-	+ EOL
-)

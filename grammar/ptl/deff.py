@@ -11,5 +11,3 @@ loyaltymod << (LBRACKET + change + RBRACKET)
 
 loyaltystart << amount
 ptstart << (amount + SLASH + amount)
-
-cardptl << (ptstart|loyaltystart) + EOL

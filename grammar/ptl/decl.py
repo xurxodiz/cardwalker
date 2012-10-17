@@ -7,5 +7,3 @@ ptmod = Forward().setParseAction(act.ptmod)
 
 loyaltystart = Forward().setParseAction(act.loyaltystart)
 ptstart = Forward().setParseAction(act.ptstart)
-
-cardptl = Forward()

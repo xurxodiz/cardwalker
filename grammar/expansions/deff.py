@@ -9,4 +9,3 @@ frequency << FREQUENCY
 expcode << Word(string.digits + string.uppercase)
 
 expansion << expcode + Suppress(DASH) + frequency
-cardexpansions << (delimitedList(expansion, COMMA) + EOL)

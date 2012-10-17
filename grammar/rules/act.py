@@ -5,6 +5,3 @@ def rule(s,l,t):
 
 def rulelist(s,l,t):
 	return wrap("set", t)
-
-def cardrules(s,l,t):
-	return wrap("rules", t)

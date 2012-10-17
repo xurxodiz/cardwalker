@@ -21,7 +21,7 @@ exiled << EXILE
 sacrificed << SACRIFICE
 haunted << HAUNT
 
-adjective << ( \
+adjective << (
 	color
 	| nontype
 	| supertype

@@ -3,7 +3,7 @@ from pyparsing import *
 from ..adjectives.deff import adjectives
 from ..articles.deff import det
 from ..zones.deff import where
-from ...types.deff import subtype, type_, cardname
+from ...types.deff import subtype, type_, name
 from ...constants.concepts.deff import IT, THEY, SPELL, PERMANENT, CARD, ABILITY
 from ...functions.deff import delimitedListAnd, delimitedListOr
 
@@ -27,7 +27,7 @@ they << THEY
 
 objects << OneOrMore(
 	(andobjects ^ orobjects
-	| cardname
+	| name
 	| it
 	| they
 	) + Optional(where)

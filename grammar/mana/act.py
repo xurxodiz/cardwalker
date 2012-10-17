@@ -56,6 +56,3 @@ def xcost(s,l,t):
 
 def manapayment(s,l,t):
 	return wrap("cost", t)
-
-def cardcost(s,l,t):
-	return wrap("cost", t)
