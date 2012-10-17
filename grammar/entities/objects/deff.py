@@ -9,7 +9,7 @@ from ...functions.deff import delimitedListAnd, delimitedListOr
 
 from decl import *
 
-concept << (SPELL|PERMANENT|CARD|ABILITY)
+concept << (SPELL|PERMANENT|CARD)
 
 noun << (subtype | type_ | concept)
 
