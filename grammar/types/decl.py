@@ -2,7 +2,7 @@ from pyparsing import *
 
 import act
 
-name = Forward().setParseAction(act.name)
+thiscard = Forward().setParseAction(act.thiscard)
 
 supertype = Forward().setParseAction(act.supertype)
 type_ = Forward().setParseAction(act.type_)

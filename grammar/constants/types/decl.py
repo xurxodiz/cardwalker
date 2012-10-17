@@ -1,6 +1,6 @@
 from pyparsing import *
 
-CARDNAME = Forward()
+THISCARD = Forward()
 
 SUPERTYPE = Forward()
 TYPE_ = Forward()

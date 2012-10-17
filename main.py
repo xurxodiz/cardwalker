@@ -43,6 +43,7 @@ with open(path, "r") as f:
         storage += line
         if not line.strip():
             name = storage.splitlines()[0]
+            storage = storage.replace(name, "~")
             if single:
                 deep_parse(storage)
             else:

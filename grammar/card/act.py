@@ -1,5 +1,8 @@
 from ..functions.xml import wrap
 
+def cardname(s,l,t):
+	return wrap("name", t)
+
 def cardcost(s,l,t):
 	return wrap("cost", t)
 

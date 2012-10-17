@@ -1,7 +1,7 @@
 from ..functions.xml.deff import wrap, lowername, emptytag
 
-def name(s,l,t):
-	return wrap("name", t[0])
+def thiscard(s,l,t):
+	return emptytag("thiscard")
 
 def type_(s,l,t):
 	return emptytag(lowername(t))

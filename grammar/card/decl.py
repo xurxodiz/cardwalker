@@ -2,7 +2,7 @@ from pyparsing import *
 
 import act
 
-cardname = Forward()
+cardname = Forward().setParseAction(act.cardname)
 
 cardcost = Forward().setParseAction(act.cardcost)
 

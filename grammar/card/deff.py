@@ -3,7 +3,7 @@ from pyparsing import *
 ParserElement.setDefaultWhitespaceChars("\t ")
 
 from ..constants.punctuation.deff import DASH, COMMA, EOL
-from ..types.deff import supertype, type_, subtype, name
+from ..types.deff import supertype, type_, subtype
 from ..mana.deff import singlecost
 from ..ptl.deff import ptstart, loyaltystart
 from ..rules.deff import rulelist
@@ -11,7 +11,7 @@ from ..expansions.deff import expansion
 
 from decl import *
 
-cardname << name + EOL
+cardname << SkipTo(EOL) + EOL
 
 cardcost << (OneOrMore(singlecost) + EOL)
 
