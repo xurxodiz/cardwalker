@@ -23,7 +23,5 @@ orthings << delimitedListOr(thing)
 andthings << delimitedListAnd(thing)
 
 things << OneOrMore(
-	(andthings ^ orthings
-	| thiscard
-	) + Optional(where)
+	(andthings ^ orthings) + Optional(where)
 )

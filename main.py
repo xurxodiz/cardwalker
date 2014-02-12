@@ -4,14 +4,37 @@ import sys
 
 total, cleared = 0, 0
 
-single = (len(sys.argv) > 1)
+def main():
+    global cleared, total
 
-if single:
-    path = "oracle/card.txt"
-else:
-    path = "oracle/workingset.txt"
+    single = (len(sys.argv) > 1)
 
-def parse(s):
+    if single:
+        path = "oracle/card.txt"
+    else:
+        path = "oracle/workingset.txt"
+
+    with open(path, "r") as f:
+        storage = ""
+
+        for line in f:
+            storage += line
+            if not line.strip():
+                name = storage.splitlines()[0]
+                #sto = name + "\n"
+                #for line in storage.splitlines()[1:]:
+                #    sto += line.replace(name, "~") + "\n"
+                if single:
+                    deep_parse(storage)
+                else:
+                    parse(name, storage)
+                storage = ""
+
+        if not single:
+            print "Parsed %s out of %s" % (cleared, total)
+
+
+def parse(name, s):
     global cleared, total
     total += 1
 
@@ -31,24 +54,12 @@ def parse(s):
         except:
             print "Error"
 
+
 def deep_parse(s):
     tree = "".join(card.parseString(s))
     root = etree.fromstring(tree)
     print(etree.tostring(root, pretty_print=True))
 
-with open(path, "r") as f:
-    storage = ""
 
-    for line in f:
-        storage += line
-        if not line.strip():
-            name = storage.splitlines()[0]
-            storage = storage.replace(name, "~")
-            if single:
-                deep_parse(storage)
-            else:
-                parse(storage)
-            storage = ""
-
-    if not single:
-        print "Parsed %s out of %s" % (cleared, total)
+if __name__ == '__main__':
+    main()

@@ -4,8 +4,6 @@ from ...functions.deff import loadLinesFromFile, loadFromFile
 
 from decl import *
 
-THISCARD << Literal("~")
-
 SUPERTYPE << loadFromFile("oracle/ref/supertypes.txt")
 TYPE_ << loadFromFile("oracle/ref/types.txt")
 

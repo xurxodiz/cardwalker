@@ -6,8 +6,6 @@ from ..constants.punctuation.deff import DASH, EOL, APOS
 
 from decl import *
 
-thiscard << THISCARD
-
 supertype << SUPERTYPE
 type_ << TYPE_
 
