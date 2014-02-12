@@ -1,5 +1,7 @@
 #!/bin/sh
 
+## Creates a file with only the cards from the given expansions
+
 # if no parameters, we look for Magic 2013
 case $# in 
 	0) EXP="M13";;

@@ -1,6 +1,8 @@
 #!/bin/sh
 #!/bin/sh
 
+## Creates an act.py file from a decl.py file
+
 INPUT=$1
 OUTPUT=$1.act
 

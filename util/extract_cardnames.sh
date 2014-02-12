@@ -1,5 +1,7 @@
 #!/bin/sh
 
+## Creates a list of all the cardnames in Magic
+
 echo "Extracting names..."
 
 INPUT=oracle/allsets.txt
