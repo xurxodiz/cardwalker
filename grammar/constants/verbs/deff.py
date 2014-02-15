@@ -39,9 +39,10 @@ REGENERATE << oneOfNamed("regenerate regenerates regenerated")
 CONTROL << oneOfNamed("control controls controlled")
 COUNTERSPELL << oneOfNamed("counter counters")
 
-# keywords:
+# keyword-verbs:
 
-EQUIP << oneOfNamed ("equip equipped")
-FORTIFY << oneOfNamed ("fortify fortified")
-HAUNT << oneOfNamed ("haunt haunted")
-ENCHANT << oneOfNamed ("enchant enchanted")
+EQUIP << oneOfNamed("equip equipped")
+FORTIFY << oneOfNamed("fortify fortified")
+HAUNT << oneOfNamed("haunt haunted")
+ENCHANT << oneOfNamed("enchant enchanted")
+SCRY << oneOfNamed("scry")

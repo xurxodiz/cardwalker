@@ -38,6 +38,7 @@ for_ << (FOR + objects)
 destroy << DESTROY + objects
 cantregenerate << CANT + BE + REGENERATE
 exile << EXILE + objects + Optional(FROM + delimitedListAnd(zone))
+scry << SCRY + quantity
 gainlife << GAIN + quantity + LIFE
 tap << TAP + objects
 untap << UNTAP + objects
@@ -103,6 +104,7 @@ effect << (
 		| prevention
 		| addmana
 		| counterspell
+		| scry
 ) + Optional(quantifier)
 
 oneshot << Optional(subjects) + delimitedListAnd(effect)

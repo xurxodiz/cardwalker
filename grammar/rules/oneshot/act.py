@@ -40,6 +40,9 @@ def exile(s,l,t):
 		details = t[1]
 	return wrap("exile", details)
 
+def scry(s,l,t):
+	return wrap("scry", t[1])
+
 def gainlife(s,l,t):
 	return wrap("gain", wrap("life", t[1]))
 
