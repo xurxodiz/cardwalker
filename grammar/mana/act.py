@@ -55,4 +55,4 @@ def xcost(s,l,t):
 	return wrap("colorless", t)
 
 def manapayment(s,l,t):
-	return wrap("cost", t)
+	return wrap("manacost", t)

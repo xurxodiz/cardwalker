@@ -14,8 +14,8 @@ from decl import *
 tapsymbol << LBRACE + TAPSYMBOL + RBRACE
 untapsymbol << LBRACE + UNTAPSYMBOL + RBRACE
 
-cost << (tapsymbol | untapsymbol | effect | manapayment | loyaltymod)
-activated << delimitedList(cost) + COLON + (oneshot|continuous)
+cost << delimitedList(tapsymbol | untapsymbol | loyaltymod | effect | manapayment)
+activated << cost + COLON + (oneshot|continuous)
 
 # continuous has to come before keywords
 # or "enchanted creature" (e.g.) creates a ENCHANT token
