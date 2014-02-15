@@ -6,9 +6,6 @@ from decl import *
 PROTECTION << CaselessLiteral("Protection")
 WALK << CaselessLiteral("Walk")
 
-INDESTRUCTIBLE << CaselessLiteral("indestructible")
-UNBLOCKABLE << CaselessLiteral("unblockable")
-
 BASICKEYWORD << loadLinesFromFile("oracle/ref/basic_keywords.txt")
 
 NUMBERKEYWORD << loadLinesFromFile("oracle/ref/number_keywords.txt")
