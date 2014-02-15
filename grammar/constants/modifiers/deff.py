@@ -7,6 +7,8 @@ EQUAL << CaselessLiteral("equal")
 
 NON << CaselessLiteral("non")
 ATRANDOM << CaselessLiteral("at random")
+
+ABLE << CaselessLiteral("able")
 ALONE << CaselessLiteral("alone")
 
 COMBAT << CaselessLiteral("combat")

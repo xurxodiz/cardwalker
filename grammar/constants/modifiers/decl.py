@@ -5,6 +5,8 @@ EQUAL = Forward()
 
 NON = Forward()
 ATRANDOM = Forward()
+
+ABLE = Forward()
 ALONE = Forward()
 
 COMBAT = Forward()
