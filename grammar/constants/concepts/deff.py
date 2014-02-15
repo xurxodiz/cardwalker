@@ -1,6 +1,6 @@
 from pyparsing import *
 
-from ...functions.deff import oneOfNamed
+from ...functions.deff import oneOfNamed, loadLinesFromFile
 
 from decl import *
 
@@ -9,5 +9,6 @@ PERMANENT << oneOfNamed("permanent permanents")
 CARD << oneOfNamed("card cards")
 
 THISCARD << Literal("~")
+NAMES << loadLinesFromFile("oracle/ref/names.txt")
 
 COUNTER << CaselessLiteral("counter") # +1/+1 etc
