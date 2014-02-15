@@ -41,11 +41,6 @@ def parse(name, s):
     total += 1
 
     try:
-        """tree = "".join(card.parseString(s))
-        root = etree.fromstring(tree)
-        r = root.xpath('//name')
-        print "Parsed: %s" % r[0].text"""
-
         card.parseString(s)
         print "Parsed: %s" % name
         cleared += 1
