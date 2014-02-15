@@ -38,7 +38,6 @@ trigger_action << (
 
 when_trigger << (WHEN|WHENEVER) + objects + trigger_action
 
-
 turn << TURN
 upkeep << UPKEEP
 drawstep << DRAWSTEP
@@ -56,6 +55,6 @@ trigger << (when_trigger|at_trigger)
 # implement intervening if clauses
 intervif << Empty()
 
-trigger_clause << trigger + Optional(COMMA + intervif)
+trigger_clause << trigger #+ Optional(COMMA + intervif)
 
 triggered << trigger_clause + COMMA + delimitedListAnd(oneshot|continuous)
