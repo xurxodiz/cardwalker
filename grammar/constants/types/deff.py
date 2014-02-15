@@ -1,6 +1,6 @@
 from pyparsing import *
 
-from ...functions.deff import loadLinesFromFile, loadFromFile
+from ...functions.deff import loadFromFile
 
 from decl import *
 

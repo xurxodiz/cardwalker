@@ -24,4 +24,5 @@ other << OTHER
 each << EACH
 the << THE
 
+# beware of ordering, it's match-first
 det << (quantitytarget | quantity | target | this | that | other | each | the)

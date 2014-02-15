@@ -4,7 +4,7 @@ from ...functions.deff import *
 from decl import *
 
 COLORNAME << oneOf("white blue black red green", caseless=True)
-COLORFEATURE << oneOf ("colorless colored multicolored monocolored", caseless=True)
+COLORFEATURE << oneOf("colorless colored multicolored monocolored", caseless=True)
 MANASYMBOL << oneOf("W U B R G", caseless=True)
 TAPSYMBOL << CaselessLiteral("T")
 UNTAPSYMBOL << CaselessLiteral("Q")

@@ -10,5 +10,5 @@ BOTTOM << CaselessLiteral("bottom")
 HAND << oneOfNamed("hand hands")
 GRAVEYARD << oneOfNamed("graveyard graveyards")
 LIBRARY << oneOfNamed("library libraries")
-# exile is defined as verb
+# exile is defined in the verb module
 BATTLEFIELD << CaselessLiteral("battlefield")

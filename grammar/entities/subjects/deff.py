@@ -14,6 +14,6 @@ objects << (andobjects ^ orobjects)
 mayhave << people + MAY + HAVE + objects
 may << people + MAY
 
-# things and people will never be mixed when in subject position
+# things and people will never be and-or'ed when in subject position
 # - they are when in object (e.g. direct damage)
 subjects << (mayhave|may|people|things)

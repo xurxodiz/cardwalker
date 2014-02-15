@@ -25,7 +25,7 @@ enchant << ENCHANT + type_
 # cycling goes apart because we need to extract the type
 cycling << Optional(subtype) + Suppress(CYCLING) + manapayment
 
-landwalk << land_type + WALK # mountain/forest land
+landwalk << land_type + WALK # legendary landwalk will fail this
 
 protection << Suppress(PROTECTION) + delimitedListAnd(Suppress(FROM) + color)
 
