@@ -18,5 +18,5 @@ cat $INPUT \
 	n
 	p
 }' \
-| sed '/^$/d' \
+| sed '/^$/d' | sed -n '1!G;h;$p' \
 > $OUTPUT
