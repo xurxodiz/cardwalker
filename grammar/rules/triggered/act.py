@@ -1,31 +1,19 @@
 from ...functions.xml.deff import *
 
-enterzone << ENTER + zone + Optional(undercontrol)
-leavezone << LEAVE + zone
-die << DIE
-gainlife << GAIN + LIFE
-drawcards << DRAW + objects
-loselife << LOSE + LIFE
-attackalone << ATTACK + ALONE
-controlobjects << peoplecontrol + objects
+def turn(s,l,t):
+	return emptytag("turn")
 
-trigger << (
-		enterzone
-		| leavezone
-		| die
-		| gainlife
-		| drawcards
-		| loselife
-		| attackalone
-		| controlobjects
-)
+def upkeep(s,l,t):
+	return emptytag("upkeep")
 
-when_trigger << (WHEN|WHENEVER) + subject + trigger
-at_trigger << Empty()
-trigger << (when_trigger|at_trigger)
+def drawstep(s,l,t):
+	return emptytag("drawstep")
 
-intervif << Literal("FILLER")
+def precombat(s,l,t):
+	return emptytag("precombat")
 
-trigger_clause << trigger + Optional(COMMA + intervif)
+def combat(s,l,t):
+	return emptytag("combat")
 
-triggered << trigger_clause + COMMA + (oneshot|continuous)
+def poscombat(s,l,t):
+	return emptytag("poscombat")
