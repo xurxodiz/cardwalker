@@ -1,6 +1,7 @@
 from grammar.card.deff import card
 from lxml import etree
 import sys
+import re
 
 total, cleared = 0, 0
 
@@ -21,13 +22,14 @@ def main():
             storage += line
             if not line.strip():
                 name = storage.splitlines()[0]
-                #sto = name + "\n"
-                #for line in storage.splitlines()[1:]:
-                #    sto += line.replace(name, "~") + "\n"
+                # with this hack we get the ~ reference and save LOTS of computation time
+                sto = name + "\n"
+                for line in storage.splitlines()[1:]:
+                    sto += re.sub("\\b" + name + "\\b(?!$)", "~", line) + "\n"
                 if single:
-                    deep_parse(storage)
+                    deep_parse(sto)
                 else:
-                    parse(name, storage)
+                    parse(name, sto)
                 storage = ""
 
         if not single:

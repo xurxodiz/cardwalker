@@ -10,3 +10,5 @@ ATRANDOM << CaselessLiteral("at random")
 ALONE << CaselessLiteral("alone")
 
 COMBAT << CaselessLiteral("combat")
+
+NAMED << CaselessLiteral("named")

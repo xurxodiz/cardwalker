@@ -2,6 +2,11 @@ from pyparsing import *
 
 import act
 
+name = Forward().setParseAction(act.name)
+thiscard = Forward().setParseAction(act.thiscard)
+
+named = Forward().setParseAction(act.named)
+
 concept = Forward().setParseAction(act.concept)
 
 noun = Forward()

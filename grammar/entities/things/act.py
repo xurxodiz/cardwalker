@@ -20,3 +20,12 @@ def it(s,l,t):
 
 def they(s,l,t):
 	return emptytag("they")
+
+def name(s,l,t):
+  return wrap("name", t)
+
+def thiscard(s,l,t):
+  return emptytag("thiscard")
+
+def named(s,l,t):
+  return wrap("named", t[1])

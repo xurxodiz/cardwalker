@@ -8,4 +8,6 @@ SPELL << oneOfNamed("spell spells")
 PERMANENT << oneOfNamed("permanent permanents")
 CARD << oneOfNamed("card cards")
 
+THISCARD << Literal("~")
+
 COUNTER << CaselessLiteral("counter") # +1/+1 etc

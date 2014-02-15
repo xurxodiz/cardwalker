@@ -8,3 +8,5 @@ ATRANDOM = Forward()
 ALONE = Forward()
 
 COMBAT = Forward()
+
+NAMED = Forward()
