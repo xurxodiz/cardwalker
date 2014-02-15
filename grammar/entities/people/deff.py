@@ -23,6 +23,6 @@ people << delimitedListAnd(person)
 
 personposs << person + POSS
 
-peopleposs << (singleposs|personposs)
+peopleposs << (personposs|singleposs)
 peoplecontrol << people + CONTROL
 undercontrol << UNDER + peopleposs + CONTROL
